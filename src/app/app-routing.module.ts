@@ -4,12 +4,14 @@ import { LoginComponent } from './components/login/login.component';
 import { PaymentComponent } from './components/payment/payment.component';
 import { CartComponent } from './components/cart/cart.component';
 import { ProductComponent } from "./components/product/product.component";
+import { RegisterComponent } from './register/register.component';
 
 const routes: Routes = [
     { path: 'login', component: LoginComponent },
     { path: 'cart', component: CartComponent },  // Define the cart route
     { path: 'payment', component: PaymentComponent },
     { path: 'shop', component: ProductComponent },
+    { path: 'register', component: RegisterComponent },
     { path: '', redirectTo: 'login', pathMatch: 'full' }, // Default route
 ];
 

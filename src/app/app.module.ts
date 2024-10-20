@@ -23,6 +23,7 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import { ProductComponent } from "./components/product/product.component";
 import { RegisterComponent } from './register/register.component';
 import {MatFormFieldModule} from '@angular/material/form-field'
+import { MatInputModule } from '@angular/material/input';
 
 
 
@@ -53,6 +54,7 @@ import {MatFormFieldModule} from '@angular/material/form-field'
     MatToolbarModule,
     MatIconModule,
     MatFormFieldModule,
+    MatInputModule
   ],
   providers: [provideHttpClient(withFetch()), provideAnimationsAsync()], // No need to provide HttpClient here if not using withFetch
   bootstrap: [AppComponent]
