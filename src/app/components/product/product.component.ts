@@ -9,7 +9,8 @@ import { Product } from '../../models';
 })
 export class ProductComponent implements OnInit {
   products: Product[] = [];
-  newProduct: Product = { name: '', description: '', price: 0, stock: 0, supplier: null, category: null, image: null };
+  newProduct: Product = { name: '', description: '', price: 0, stock: 0, supplier_id: null, category_id: null, image: null , category : null , supplier : null};
+  selectedFile: File | null = null; // Variable to store the selected file
   isAdmin: boolean = false; // Check if user is admin
   editProductId: number | null = null; // Track product being edited
 
@@ -23,6 +24,7 @@ export class ProductComponent implements OnInit {
   fetchProducts(): void {
     this.productService.getProducts().subscribe(
       (data) => {
+        // Ensure price is correctly formatted
         this.products = data.map(product => ({
           ...product,
           price: typeof product.price === 'string' ? parseFloat(product.price) : product.price // Convert if it's a string
@@ -35,6 +37,14 @@ export class ProductComponent implements OnInit {
     );
   }
 
+  // Handle file selection
+  onFileSelected(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files.length > 0) {
+      this.selectedFile = input.files[0]; // Store the selected file
+    }
+  }
+
   // Add new product or update an existing one
   addProduct(): void {
     if (!this.isAdmin) {
@@ -42,11 +52,17 @@ export class ProductComponent implements OnInit {
       return; // Exit if not admin
     }
 
-    if (this.editProductId) {
-      this.updateProduct(this.editProductId, this.newProduct);
+    // Log the new product data and file before sending it to the service
+    console.log('Product data before sending:', this.newProduct);
+    console.log('File data before sending:', this.selectedFile);
+    // We log here to ensure the product and file data is correct before calling the service
+
+    if (this.editProductId !== null) {
+      this.updateProduct(this.editProductId, this.newProduct, this.selectedFile); // Pass selected file
     } else {
-      this.productService.createProduct(this.newProduct).subscribe(
+      this.productService.createProduct(this.newProduct, this.selectedFile ?? null).subscribe( // Use null if selectedFile is undefined
         (data) => {
+          console.log('Product created:', data);
           this.fetchProducts(); // Refresh product list
           this.resetForm();
         },
@@ -66,17 +82,20 @@ export class ProductComponent implements OnInit {
 
     this.newProduct = { ...product }; // Clone details to form
     this.editProductId = product?.id ?? null;
+    this.selectedFile = null; // Reset selected file when editing
   }
 
-  // Update product by ID
-  updateProduct(id: number, updatedProduct: Product): void {
+  // Update existing product
+  updateProduct(id: number, updatedProduct: Product, selectedFile: File | null = null): void { // Set default to null
     if (!this.isAdmin) {
       console.error('User does not have permission to update products');
       return; // Exit if not admin
     }
 
-    this.productService.updateProduct(id, updatedProduct).subscribe(
+    // Call updateProduct from ProductService with the required parameters
+    this.productService.updateProduct(id, updatedProduct, selectedFile).subscribe(
       () => {
+        console.log('Product updated successfully');
         this.fetchProducts(); // Refresh products
         this.resetForm();
       },
@@ -101,6 +120,7 @@ export class ProductComponent implements OnInit {
     if (window.confirm('Are you sure you want to delete this product?')) {
       this.productService.deleteProduct(id).subscribe(
         () => {
+          console.log('Product deleted successfully');
           this.fetchProducts(); // Refresh the product list after deletion
         },
         (error) => {
@@ -121,7 +141,8 @@ export class ProductComponent implements OnInit {
 
   // Reset form and edit mode
   resetForm(): void {
-    this.newProduct = { name: '', description: '', price: 0, stock: 0, supplier: null, category: null, image: null };
+    this.newProduct = { name: '', description: '', price: 0, stock: 0, supplier_id: null, category_id: null, image: null ,category : null , supplier : null };
     this.editProductId = null;
+    this.selectedFile = null; // Reset the selected file
   }
 }

@@ -6,7 +6,7 @@ export interface Cart {
     products: string[];  // Array of product names or IDs
     created_at: string;  // Timestamp of when the cart was created
   }
-  
+
   export interface CartItem {
     id: number;
     cart: number;  // Cart ID reference
@@ -14,7 +14,7 @@ export interface Cart {
     productName: string;  // Product name for display
     quantity: number;  // Quantity of the product in the cart
   }
-  
+
 
   // product.model.ts
 export interface Product {
@@ -23,7 +23,9 @@ export interface Product {
   description: string;
   price: number;
   stock: number;
-  supplier: number | null; // You might want to create a separate Supplier model
-  category: number | null; // You might want to create a separate Category model
-  image?: string | null; // Optional field for image URL
+  supplier_id: number | null;
+  category_id: number | null;
+  supplier: number | null;
+  category: number | null;
+  image?: String | null; // Optional field for image URL
 }

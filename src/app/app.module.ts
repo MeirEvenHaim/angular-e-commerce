@@ -21,6 +21,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { ProductComponent } from "./components/product/product.component";
+import { RegisterComponent } from './register/register.component';
+import {MatFormFieldModule} from '@angular/material/form-field'
 
 
 
@@ -30,7 +32,8 @@ import { ProductComponent } from "./components/product/product.component";
     LoginComponent,
     PaymentComponent,
     CartComponent,
-    ProductComponent
+    ProductComponent,
+    RegisterComponent
   ],
 
 
@@ -49,6 +52,7 @@ import { ProductComponent } from "./components/product/product.component";
     MatListModule,
     MatToolbarModule,
     MatIconModule,
+    MatFormFieldModule,
   ],
   providers: [provideHttpClient(withFetch()), provideAnimationsAsync()], // No need to provide HttpClient here if not using withFetch
   bootstrap: [AppComponent]
