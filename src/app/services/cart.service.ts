@@ -1,19 +1,16 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { Cart } from '../models';
 
-export interface Cart {
-  id?: number;
-  client: string;  // Adjust this as per your client model (string or ID)
-  products: any[]; // Adjust this to match the structure of the Product model
-  created_at: string;
-}
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class CartService {
-  private apiUrl = 'http://127.0.0.1:8000/carts/';  // Replace with your actual backend URL
+  private apiUrl = 'http://127.0.0.1:8000/carts/';
+
 
   constructor(private http: HttpClient) { }
 
@@ -50,4 +47,5 @@ export class CartService {
   deleteCart(id: number): Observable<any> {
     return this.http.delete(`${this.apiUrl}${id}/`, { headers: this.getHeaders() });
   }
+
 }

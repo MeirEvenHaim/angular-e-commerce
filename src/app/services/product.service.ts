@@ -46,12 +46,8 @@ export class ProductService {
       formData.append('image', file, file.name);
     }
 
-    // Log the form data content before sending the POST request
     console.log('Form data before sending:', formData);
-    // We log the FormData here to inspect what exactly is being sent to the backend
-    // Since FormData objects cannot be easily logged, this will help identify missing fields or incorrectly formatted data
 
-    // Send the form data via POST request
     return this.http.post<Product>(this.apiUrl, formData, { headers: this.getHeaders() });
   }
 

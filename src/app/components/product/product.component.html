@@ -15,6 +15,9 @@
           <p class="card-text">
             <strong>Category:</strong> {{ product.category }}
           </p>
+          <p class="card-text">
+            <strong>how much :</strong> <input type="number" id="quantity" name="quantity" value="0"/> out of the existing stock {{ product.stock }}
+          </p>
           <!-- Display supplier name -->
           <p class="card-text">
             <strong>Supplier:</strong> {{ product.supplier }}
@@ -23,7 +26,7 @@
             <span class="text-muted"
               >${{ product.price | number : "1.2-2" }}</span
             >
-            <button class="btn btn-primary">
+            <button class="btn btn-primary" (click)="addedproducts(product?.id!)">
               <i class="material-icons">add_shopping_cart</i> Add to Cart
             </button>
           </div>

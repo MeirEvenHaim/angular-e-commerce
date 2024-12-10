@@ -5,13 +5,17 @@ import { PaymentComponent } from './components/payment/payment.component';
 import { CartComponent } from './components/cart/cart.component';
 import { ProductComponent } from "./components/product/product.component";
 import { RegisterComponent } from './register/register.component';
+import { CartItemsComponent } from './components/cart-linked-products/cart-linked-products.component';
+
 
 const routes: Routes = [
+    { path: 'client_cart', component: CartItemsComponent  },
     { path: 'login', component: LoginComponent },
-    { path: 'cart', component: CartComponent },  // Define the cart route
+    { path: 'cart', component: CartComponent },
     { path: 'payment', component: PaymentComponent },
     { path: 'shop', component: ProductComponent },
     { path: 'register', component: RegisterComponent },
+    { path: 'payment', component: PaymentComponent },
     { path: '', redirectTo: 'login', pathMatch: 'full' }, // Default route
 ];
 

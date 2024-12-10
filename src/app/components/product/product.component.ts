@@ -5,16 +5,28 @@ import { Product } from '../../models';
 @Component({
   selector: 'app-product',
   templateUrl: './product.component.html',
-  styleUrls: ['./product.component.css']
+  styleUrls: ['./product.component.css'],
 })
 export class ProductComponent implements OnInit {
   products: Product[] = [];
-  newProduct: Product = { name: '', description: '', price: 0, stock: 0, supplier_id: null, category_id: null, image: null , category : null , supplier : null};
+  newProduct: Product = {
+    name: '',
+    description: '',
+    price: 0,
+    stock: 0,
+    supplier_id: null,
+    category_id: null,
+    image: null,
+    category: null,
+    supplier: null,
+  };
   selectedFile: File | null = null; // Variable to store the selected file
   isAdmin: boolean = false; // Check if user is admin
   editProductId: number | null = null; // Track product being edited
 
-  constructor(private productService: ProductService) {}
+  constructor(
+    private productService: ProductService,
+  ) {}
 
   ngOnInit(): void {
     this.fetchProducts();
@@ -25,9 +37,12 @@ export class ProductComponent implements OnInit {
     this.productService.getProducts().subscribe(
       (data) => {
         // Ensure price is correctly formatted
-        this.products = data.map(product => ({
+        this.products = data.map((product) => ({
           ...product,
-          price: typeof product.price === 'string' ? parseFloat(product.price) : product.price // Convert if it's a string
+          price:
+            typeof product.price === 'string'
+              ? parseFloat(product.price)
+              : product.price, // Convert if it's a string
         }));
         console.log('Fetched products:', this.products);
       },
@@ -58,18 +73,25 @@ export class ProductComponent implements OnInit {
     // We log here to ensure the product and file data is correct before calling the service
 
     if (this.editProductId !== null) {
-      this.updateProduct(this.editProductId, this.newProduct, this.selectedFile); // Pass selected file
+      this.updateProduct(
+        this.editProductId,
+        this.newProduct,
+        this.selectedFile
+      ); // Pass selected file
     } else {
-      this.productService.createProduct(this.newProduct, this.selectedFile ?? null).subscribe( // Use null if selectedFile is undefined
-        (data) => {
-          console.log('Product created:', data);
-          this.fetchProducts(); // Refresh product list
-          this.resetForm();
-        },
-        (error) => {
-          console.error('Error adding product:', error);
-        }
-      );
+      this.productService
+        .createProduct(this.newProduct, this.selectedFile ?? null)
+        .subscribe(
+          // Use null if selectedFile is undefined
+          (data) => {
+            console.log('Product created:', data);
+            this.fetchProducts(); // Refresh product list
+            this.resetForm();
+          },
+          (error) => {
+            console.error('Error adding product:', error);
+          }
+        );
     }
   }
 
@@ -86,23 +108,30 @@ export class ProductComponent implements OnInit {
   }
 
   // Update existing product
-  updateProduct(id: number, updatedProduct: Product, selectedFile: File | null = null): void { // Set default to null
+  updateProduct(
+    id: number,
+    updatedProduct: Product,
+    selectedFile: File | null = null
+  ): void {
+    // Set default to null
     if (!this.isAdmin) {
       console.error('User does not have permission to update products');
       return; // Exit if not admin
     }
 
     // Call updateProduct from ProductService with the required parameters
-    this.productService.updateProduct(id, updatedProduct, selectedFile).subscribe(
-      () => {
-        console.log('Product updated successfully');
-        this.fetchProducts(); // Refresh products
-        this.resetForm();
-      },
-      (error) => {
-        console.error('Error updating product:', error);
-      }
-    );
+    this.productService
+      .updateProduct(id, updatedProduct, selectedFile)
+      .subscribe(
+        () => {
+          console.log('Product updated successfully');
+          this.fetchProducts(); // Refresh products
+          this.resetForm();
+        },
+        (error) => {
+          console.error('Error updating product:', error);
+        }
+      );
   }
 
   // Delete product by ID
@@ -141,8 +170,29 @@ export class ProductComponent implements OnInit {
 
   // Reset form and edit mode
   resetForm(): void {
-    this.newProduct = { name: '', description: '', price: 0, stock: 0, supplier_id: null, category_id: null, image: null ,category : null , supplier : null };
+    this.newProduct = {
+      name: '',
+      description: '',
+      price: 0,
+      stock: 0,
+      supplier_id: null,
+      category_id: null,
+      image: null,
+      category: null,
+      supplier: null,
+    };
     this.editProductId = null;
     this.selectedFile = null; // Reset the selected file
   }
+
+  // product client list in cart methodes
+  addedproducts(product_id : number): void {
+    // this.cartProductListService.addToCart(cartproducts);
+    console.log("product_id", product_id );
+
+    let quantity = (document.getElementById("quantity") as HTMLInputElement)?.value!;
+    console.log(quantity, "lololol");
+
+}
+
 }

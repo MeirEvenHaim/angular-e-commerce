@@ -18,10 +18,12 @@ export class LoginComponent {
     if (this.username && this.password) {
       this.authService.login(this.username, this.password).subscribe(
         response => {
+          console.log("res", response);
           // Check if the response contains both access token and role information
           if (response.access && response.is_staff !== undefined && response.is_superuser !== undefined) {
             // Save the access token, staff status, and superuser status
-            this.authService.saveToken(response.access, response.is_staff, response.is_superuser);
+
+            this.authService.saveToken(response.access, response.is_staff, response.is_superuser  , response.user_id);
             this.router.navigate(['cart/']); // Adjust the route as needed
           } else {
             this.errorMessage = 'No access token or role information received';

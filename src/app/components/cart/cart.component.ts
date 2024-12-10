@@ -1,17 +1,21 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';  // Import Router for navigation
-import { CartService, Cart } from '../../services/cart.service';
+import { Router } from '@angular/router'; // Import Router for navigation
+import { CartService } from '../../services/cart.service';
+import { Cart } from '../../models';
 
 @Component({
   selector: 'app-cart',
   templateUrl: './cart.component.html',
-  styleUrls: ['./cart.component.css']
+  styleUrls: ['./cart.component.css'],
 })
 export class CartComponent implements OnInit {
   carts: Cart[] = [];
   selectedCart: Cart | null = null;
+  userId: string | null = localStorage.getItem('user_id')
 
-  constructor(private cartService: CartService, private router: Router) { } // Inject Router
+
+
+  constructor(private cartService: CartService, private router: Router) {} // Inject Router
 
   ngOnInit(): void {
     this.fetchCarts();
@@ -20,6 +24,8 @@ export class CartComponent implements OnInit {
   fetchCarts(): void {
     this.cartService.getCarts().subscribe(
       (data: Cart[]) => {
+        console.log("data",data);
+
         this.carts = data;
       },
       (error) => {
@@ -29,22 +35,29 @@ export class CartComponent implements OnInit {
   }
 
   viewCart(id: number): void {
+    console.log("respons", id);
+
     this.cartService.getCart(id).subscribe(
       (data: Cart) => {
-        this.selectedCart = data; 
+        this.selectedCart = data;
       },
       (error) => {
         console.error('Error fetching cart', error);
       }
     );
   }
+  // Method to select a cart and navigate to the PaymentComponent
+  // Navigate to the payment page with selected cart
+  selectCartForPayment(cart: Cart): void {
+    this.router.navigate(['/payment'], { state: { cart } });
+  }
 
-  createCart(): void {
+  createCart(id: string): void {
     const newCart: Cart = {
-      client: '1', // Set a default client ID or fetch dynamically
-      products: [],
-      created_at: new Date().toISOString()
+      user: +id, // Set a default client ID or fetch dynamically
     };
+    console.log(newCart , "hee");
+
     this.cartService.createCart(newCart).subscribe(
       (data: Cart) => {
         this.carts.push(data);
@@ -58,7 +71,7 @@ export class CartComponent implements OnInit {
   deleteCart(id: number): void {
     this.cartService.deleteCart(id).subscribe(
       () => {
-        this.carts = this.carts.filter(cart => cart.id !== id);
+        this.carts = this.carts.filter((cart) => cart.id !== id);
       },
       (error) => {
         console.error('Error deleting cart', error);
@@ -70,4 +83,5 @@ export class CartComponent implements OnInit {
   goToShop(): void {
     this.router.navigate(['/shop']); // Adjust the path according to your routing setup
   }
+
 }

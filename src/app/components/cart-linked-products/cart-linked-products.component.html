@@ -1,0 +1,71 @@
+<div class="container mt-4">
+  <h1>Cart Items</h1>
+
+  <!-- Error message -->
+  <div *ngIf="errorMessage" class="alert alert-danger">
+    {{ errorMessage }}
+  </div>
+
+  <!-- Add product form -->
+  <div class="card mb-4">
+    <div class="card-header">
+      <h4>Add Product to Cart</h4>
+    </div>
+    <div class="card-body">
+      <form (ngSubmit)="addProduct()">
+        <div class="row">
+          <div class="col-md-4">
+            <label for="newCartId" class="form-label">Cart ID</label>
+            <input type="number" class="form-control" id="newCartId" [(ngModel)]="newCartId" name="newCartId" required />
+          </div>
+
+          <div class="col-md-4">
+            <label for="newProductId" class="form-label">Product ID</label>
+            <input type="number" class="form-control" id="newProductId" [(ngModel)]="newProductId" name="newProductId" required />
+          </div>
+
+          <div class="col-md-4">
+            <label for="newQuantity" class="form-label">Quantity</label>
+            <input type="number" class="form-control" id="newQuantity" [(ngModel)]="newQuantity" name="newQuantity" min="1" required />
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary mt-3">Add to Cart</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Cart items table -->
+  <div *ngIf="cartItems.length > 0">
+    <h3>Current Cart</h3>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Product Name</th>
+          <th>Cart ID</th>
+          <th>Quantity</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of cartItems">
+          <td>{{ item.product_name }}</td>
+          <td>{{ item.cart_id }}</td>
+          <td>{{ item.client_name }}</td>
+          <td>{{ item.quantity }}</td>
+          <td>
+            <input type="number" class="form-control" [(ngModel)]="item.quantity" (change)="updateQuantity(item, item.quantity)" min="1" />
+          </td>
+          <td>
+            <button class="btn btn-danger" (click)="removeItem(item.id)">Remove</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- No cart items -->
+  <div *ngIf="cartItems.length === 0">
+    <p>No items in the cart yet. Add products using the form above.</p>
+  </div>
+</div>
