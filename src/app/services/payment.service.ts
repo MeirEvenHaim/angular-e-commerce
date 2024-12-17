@@ -1,27 +1,34 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class PaymentService {
-  private apiUrl = 'http://127.0.0.1:8000/paypal/'; // Adjust the URL as necessary
+  private SERVER = 'http://127.0.0.1:8000/payments';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
-  // Create a payment
-  createPayment(orderId: string): Observable<any> {
-    return this.http.post(`${this.apiUrl}create-payment/`, { order_id: orderId });
+  // Helper to create HTTP headers with accessToken
+  private getHeaders(): HttpHeaders {
+    const accessToken = localStorage.getItem('accessToken');  // Adjust as per your token storage method
+    return new HttpHeaders({
+      'Authorization': `Bearer ${accessToken}`,  // Authorization header with Bearer token
+      'Content-Type': 'application/json'        // Set content type to JSON
+    });
   }
 
-  // Payment success
-  paymentSuccess(paymentId: string): Observable<any> {
-    return this.http.post(`${this.apiUrl}payment_done/`, { payment_id: paymentId });
+  capturePayment(paymentData: any): Observable<any> {
+    console.log(paymentData);
+    return this.http.post(this.SERVER + '/create/', paymentData,{ headers: this.getHeaders() });
   }
 
-  // Payment cancelled
-  paymentCancelled(): Observable<any> {
-    return this.http.post(`${this.apiUrl}payment_cancelled/`, {});
+  getPayment(paymentId: string): Observable<any> {
+    return this.http.get(`${this.SERVER}/${paymentId}/`);
+  }
+
+  getAllPayments(): Observable<any> {
+    return this.http.get(this.SERVER + '/');
   }
 }

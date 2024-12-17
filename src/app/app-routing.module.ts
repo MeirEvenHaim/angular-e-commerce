@@ -13,7 +13,7 @@ const routes: Routes = [
     { path: 'login', component: LoginComponent },
     { path: 'cart', component: CartComponent },
     { path: 'payment', component: PaymentComponent },
-    { path: 'shop', component: ProductComponent },
+    { path: 'product', component: ProductComponent },
     { path: 'register', component: RegisterComponent },
     { path: 'payment', component: PaymentComponent },
     { path: '', redirectTo: 'login', pathMatch: 'full' }, // Default route

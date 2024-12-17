@@ -47,5 +47,7 @@ export class CartService {
   deleteCart(id: number): Observable<any> {
     return this.http.delete(`${this.apiUrl}${id}/`, { headers: this.getHeaders() });
   }
-
+  lockCart(id: number): Observable<any> {
+    return this.http.patch<any>(`${this.apiUrl}${id}/lock/`, { locked: true },{ headers: this.getHeaders() });
+  }
 }

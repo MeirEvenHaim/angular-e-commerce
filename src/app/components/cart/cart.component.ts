@@ -81,7 +81,7 @@ export class CartComponent implements OnInit {
 
   // Method to navigate to the shop
   goToShop(): void {
-    this.router.navigate(['/shop']); // Adjust the path according to your routing setup
+    this.router.navigate(['/product']); // Adjust the path according to your routing setup
   }
 
 }
