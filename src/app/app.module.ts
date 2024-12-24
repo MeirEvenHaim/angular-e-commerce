@@ -25,6 +25,7 @@ import { RegisterComponent } from './register/register.component';
 import {MatFormFieldModule} from '@angular/material/form-field'
 import { MatInputModule } from '@angular/material/input';
 import { CartItemsComponent } from './components/cart-linked-products/cart-linked-products.component';
+import { HomepageComponent } from './homepage/homepage.component';
 
 
 
@@ -38,6 +39,7 @@ import { CartItemsComponent } from './components/cart-linked-products/cart-linke
     ProductComponent,
     RegisterComponent,
     CartItemsComponent,
+    HomepageComponent,
 
   ],
 

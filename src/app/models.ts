@@ -2,7 +2,7 @@
 
   export interface CartLinkedProduct {
     id : number ;
-    cart_id: number;  // Cart ID reference
+    cart_id: Cart[];  // Cart ID reference
     product_id: number;  // Product ID reference
     product_name? : string;
     product_price? : number;

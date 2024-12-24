@@ -14,7 +14,12 @@ export class CartItemsComponent implements OnInit {
   newQuantity: number = 1;
   newCartId: number = 0;
   errorMessage: string = '';
+  buttonStyles: any = {};
+
   constructor(private cartService: CartService) {}
+
+
+
 
   ngOnInit(): void {
     this.loadCartItems();
@@ -89,6 +94,39 @@ export class CartItemsComponent implements OnInit {
     });
   }
 
+  onMouseMove(event: MouseEvent, buttonId: string) {
+    const button = event.target as HTMLElement;
+    const rect = button.getBoundingClientRect();
+    const x = event.clientX - rect.left; // Mouse X position relative to button
+    const y = event.clientY - rect.top;  // Mouse Y position relative to button
+    const width = rect.width;
+    const height = rect.height;
+
+    // Calculate the percentage of mouse position in the button
+    const xPercentage = (x / width) * 100;
+    const yPercentage = (y / height) * 100;
+
+    // Update the dynamic gradient based on mouse position for the specific button
+    this.buttonStyles[buttonId] = {
+      background: `linear-gradient(45deg, rgba(155, 28, 28, 0.7) ${xPercentage}%, rgba(14, 61, 105, 0.7) ${100 - xPercentage}%)`,
+      boxShadow: `0 6px 18px rgba(0, 0, 0, 0.1), inset 0 0 10px rgba(0, 0, 0, 0.3)`
+    };
+  }
+
+  onMouseLeave(buttonId: string) {
+    // Reset the button style back to default when the mouse leaves for the specific button
+    this.buttonStyles[buttonId] = {
+      background: '#9b1c1c', // Default Ruby Red color
+      boxShadow: '0 6px 18px rgba(0, 0, 0, 0.2)'
+    };
+  }
+
+
+
+
+
+
+
   // Reset form inputs
   private resetForm(): void {
     this.newProductId = 0;
@@ -96,4 +134,9 @@ export class CartItemsComponent implements OnInit {
     this.newCartId = 0;
     this.errorMessage = '';
   }
+
+
+
+
+
 }
