@@ -10,14 +10,32 @@
       <div class="card mb-3">
         <div class="card-body">
           <h5 class="card-title">Cart ID: {{ cart.id }}</h5>
-          <p class="card-text"><strong>Client:</strong> {{ cart.client_name }}</p>
+          <p class="card-text">
+            <strong>Client:</strong> {{ cart.client_name }}
+          </p>
           <p class="card-text"><strong>User ID:</strong> {{ cart.user }}</p>
-          <p class="card-text"><strong>Created At:</strong> {{ cart.created_at }}</p>
-          <h5 class="card-title">Total Price: {{ cart.total_price | currency: 'USD' }}</h5>
+          <p class="card-text">
+            <strong>Created At:</strong> {{ cart.created_at }}
+          </p>
+          <h5 class="card-title">
+            Total Price: {{ cart.total_price | currency : "USD" }}
+          </h5>
 
-          <!-- Button to View Cart Details -->
-          <button class="view-cart" (click)="cart.id ? viewCart(cart.id) : null">View Cart</button>
-          <button class="select-cart" *ngIf="!cart.payment" (click)="selectCartForPayment(cart)">Proceed to Payment</button>
+          <button
+            class="view-cart"
+            mat-button
+            (click)="cart.id ? viewCart(cart.id) : null"
+          >
+            view cart
+          </button>
+
+          <button
+            class="select-cart"
+            *ngIf="!cart.payment"
+            (click)="selectCartForPayment(cart)"
+          >
+            Proceed to Payment
+          </button>
         </div>
       </div>
     </div>
@@ -25,55 +43,42 @@
 
   <!-- Divider -->
   <mat-divider></mat-divider>
+        <div *ngIf="selectedCart" class="mt-4">
+        <ng-template #dialogTemplate let-data>
+          <h2 mat-dialog-title>Cart Details</h2>
+          <mat-dialog-content>
+            <div *ngIf="data.cart_link_product?.length; else noProducts">
+              <h6>Products in Cart:</h6>
+              <ul>
+                <li *ngFor="let product of data.cart_link_product">
+                  {{ product.product_name }} (x{{ product.quantity }}) -
+                  {{ product.product_price | currency : "USD" }} each
+                </li>
+              </ul>
+            </div>
 
-  <!-- Display Selected Cart Details Only After "View Cart" is Pressed -->
-  <div *ngIf="selectedCart" class="mt-4">
-    <div class="card">
-      <div class="card-header">
-        <h5 class="card-title">Cart Details</h5>
-      </div>
-      <div class="card-body">
-        <p><strong>Client:</strong> {{ selectedCart.client_name }}</p>
-        <p><strong>User ID:</strong> {{ selectedCart.user }}</p>
-        <p><strong>Products in Cart:</strong> {{ selectedCart.cart_link_product ? selectedCart.cart_link_product.length : 0 }}</p>
-        <p><strong>Created At:</strong> {{ selectedCart.created_at }}</p>
-        <p><strong>Total Price:</strong> {{ selectedCart.total_price | currency: 'USD' }}</p>
+            <ng-template #noProducts>
+              <p>No products in the cart.</p>
+            </ng-template>
+          </mat-dialog-content>
+          <mat-dialog-actions>
+            <button mat-button mat-dialog-close>Close</button>
+            <button class="delete" (click)="deleteCart(selectedCart.id!)">
+              Delete Cart
+            </button>
+          </mat-dialog-actions>
+        </ng-template>
 
-        <!-- Display Products in Cart (Visible after "View Cart") -->
-        <div *ngIf="selectedCart.cart_link_product?.length">
-          <h6>Products in Cart:</h6>
-          <ul>
-            <li *ngFor="let product of selectedCart.cart_link_product">
-              {{ product.product_name }} (x{{ product.quantity }})
-              {{ product.product_price | currency: 'USD' }} each
-            </li>
-          </ul>
-        </div>
-
-        <!-- Display Payment Details if Available -->
-        <div *ngIf="selectedCart.payment">
-          <p><strong>Payment Status:</strong> {{ selectedCart.payment.payment_status }}</p>
-          <p><strong>Amount Paid:</strong> {{ selectedCart.payment.amount_payed | currency: selectedCart.payment.currency }}</p>
-          <p><strong>Payment Method:</strong> {{ selectedCart.payment.payment_method }}</p>
-          <p *ngIf="selectedCart.payment.payment_method === 'PayPal'"><strong>PayPal Transaction ID:</strong> {{ selectedCart.payment.paypal_id || 'N/A' }}</p>
-          <p><strong>Payment Date:</strong> {{ selectedCart.payment.payment_date || 'N/A' }}</p>
-        </div>
-      </div>
-
-      <!-- Cart Actions -->
-      <div class="card-footer">
-        <button class="delete" (click)="deleteCart(selectedCart.id!)">Delete Cart</button>
-      </div>
     </div>
   </div>
-
   <!-- Create New Cart -->
   <div class="mt-3">
-    <button class="new-cart" (click)="createCart(userId!)">Create New Cart</button>
+    <button class="new-cart" (click)="createCart(userId!)">
+      Create New Cart
+    </button>
   </div>
-
   <!-- Shop Redirection Button -->
   <div class="mt-3">
     <button class="shop-button" (click)="goToShop()">Go to Shop</button>
   </div>
-</div>
+

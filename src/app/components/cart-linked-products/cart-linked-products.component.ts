@@ -15,10 +15,10 @@ export class CartItemsComponent implements OnInit {
   newCartId: number = 0;
   errorMessage: string = '';
   buttonStyles: any = {};
-
+  dataSource = this.cartItems;
   constructor(private cartService: CartService) {}
 
-
+  displayedColumns: string[] = ['client_name' ,"cart","product_name","quantity","product_price" ,"actions"];
 
 
   ngOnInit(): void {

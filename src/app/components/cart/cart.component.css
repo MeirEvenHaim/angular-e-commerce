@@ -1,5 +1,3 @@
-/* Import Google Font */
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600&display=swap');
 
 /* General styles */
 body {
@@ -97,21 +95,6 @@ tr:nth-child(even) {
   background-color: #f8f9fa; /* Light grey for even rows */
 }
 
-/* Input styles */
-input[type="number"],
-input[type="text"],
-input[type="email"] {
-  width: 60px;
-  border: 1px solid #ddd; /* Light border for inputs */
-  border-radius: 5px; /* Rounded corners */
-  padding: 10px; /* Padding inside input */
-  transition: border-color 0.3s; /* Smooth border transition */
-}
-
-input:focus {
-  border-color: #007bff; /* Highlight border on focus */
-  outline: none; /* Remove default outline */
-}
 
 /* Error message */
 .error {
@@ -144,6 +127,10 @@ button.view-cart {
 
 button.new-cart {
   background: linear-gradient(45deg, #0D6EFD, #007BFF); /* Sapphire blue gradient for new cart button */
+}
+button.select-cart {
+  background: linear-gradient(45deg, #FFC107, #FFD700); /* Yellow topaz gradient for view cart button */
+  color: black; /* Black text for visibility */
 }
 
 /* Hover effects for buttons */

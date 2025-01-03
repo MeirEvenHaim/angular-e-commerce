@@ -74,3 +74,30 @@ export interface Payment {
   transaction_fee?: string; // Optional transaction fee
   payment_metadata?: any; // Optional raw payment metadata
 }
+export interface Categories {
+id? : number;
+name : string ;
+description : Blob | null ;
+}
+
+
+export interface Suppliers {
+  id : number;
+  name : string ;
+  contact_email : string | null ;
+  phone_number : number;
+  address : string ;
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+

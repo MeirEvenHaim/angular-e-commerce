@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { CartService } from './../../services/cart.service';
+import { Component, OnInit,ViewChild,TemplateRef } from '@angular/core';
 import { Router } from '@angular/router'; // Import Router for navigation
-import { CartService } from '../../services/cart.service';
 import { Cart } from '../../models';
-
+import { MatDialog } from '@angular/material/dialog';
+import { ChangeDetectorRef } from '@angular/core';
 @Component({
   selector: 'app-cart',
   templateUrl: './cart.component.html',
@@ -11,11 +12,14 @@ import { Cart } from '../../models';
 export class CartComponent implements OnInit {
   carts: Cart[] = [];
   selectedCart: Cart | null = null;
-  userId: string | null = localStorage.getItem('user_id')
+  userId: string | null = localStorage.getItem('user_id');
+  @ViewChild('dialogTemplate') dialogTemplate!: TemplateRef<any>;
 
-
-
-  constructor(private cartService: CartService, private router: Router) {} // Inject Router
+  constructor(
+    private cartService: CartService,
+     private router: Router ,
+     private dialog : MatDialog,
+     private cdr: ChangeDetectorRef) {} // Inject Router
 
   ngOnInit(): void {
     this.fetchCarts();
@@ -24,7 +28,7 @@ export class CartComponent implements OnInit {
   fetchCarts(): void {
     this.cartService.getCarts().subscribe(
       (data: Cart[]) => {
-        console.log("data",data);
+        console.log('data', data);
 
         this.carts = data;
       },
@@ -35,19 +39,28 @@ export class CartComponent implements OnInit {
   }
 
   viewCart(id: number): void {
-    console.log("respons", id);
+    console.log('Fetching cart details for ID:', id);
 
     this.cartService.getCart(id).subscribe(
-      (data: Cart) => {
+      (data) => {
+        // Set selectedCart to the fetched data
         this.selectedCart = data;
+
+        // Trigger change detection to ensure template updates
+        this.cdr.detectChanges();
+
+        // Open the dialog after data is ready
+        if (this.dialogTemplate) {
+          this.dialog.open(this.dialogTemplate, {
+            data: this.selectedCart, // Pass the loaded data
+          });
+        }
       },
       (error) => {
         console.error('Error fetching cart', error);
       }
     );
   }
-  // Method to select a cart and navigate to the PaymentComponent
-  // Navigate to the payment page with selected cart
   selectCartForPayment(cart: Cart): void {
     this.router.navigate(['/payment'], { state: { cart } });
   }
@@ -56,7 +69,7 @@ export class CartComponent implements OnInit {
     const newCart: Cart = {
       user: +id, // Set a default client ID or fetch dynamically
     };
-    console.log(newCart , "hee");
+    console.log(newCart, 'hee');
 
     this.cartService.createCart(newCart).subscribe(
       (data: Cart) => {
@@ -83,5 +96,4 @@ export class CartComponent implements OnInit {
   goToShop(): void {
     this.router.navigate(['/product']); // Adjust the path according to your routing setup
   }
-
 }

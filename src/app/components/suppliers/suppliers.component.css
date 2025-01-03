@@ -1,0 +1,39 @@
+
+
+.main-card {
+  margin: 20px;
+  padding: 20px;
+}
+
+.search-container {
+  margin-bottom: 20px;
+}
+
+.search-field {
+  width: 100%;
+  max-width: 500px;
+}
+
+.add-supplier-form {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.mat-mdc-table {
+  width: 100%;
+  margin-top: 20px;
+}
+
+.full-width {
+  width: 100%;
+  margin-bottom: 16px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+  .add-supplier-form {
+    grid-template-columns: 1fr;
+  }
+}

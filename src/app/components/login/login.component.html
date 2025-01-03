@@ -1,15 +1,88 @@
-<div class="login-container">
-  <h2>Login</h2>
-  <form (ngSubmit)="onLogin()">
-    <div>
-      <label for="username">Username:</label>
-      <input type="text" id="username" [(ngModel)]="username" name="username" required>
+<div class="container">
+  <!-- Header -->
+  <header class="row header">
+    <div class="col-12">
+      <nav class="navbar">
+        <div class="navbar-brand">Client Cart</div>
+        <ul class="navbar-menu">
+          <li><button class="btn btn-primary nav-button"
+                      (mousemove)="onMouseMove($event, 'homeButton')"
+                      (mouseleave)="onMouseLeave('homeButton')">Home</button></li>
+          <li><button class="btn btn-primary nav-button"
+                      (mousemove)="onMouseMove($event, 'aboutButton')"
+                      (mouseleave)="onMouseLeave('aboutButton')">About</button></li>
+          <li><button class="btn btn-primary nav-button"
+                      (mousemove)="onMouseMove($event, 'contactButton')"
+                      (mouseleave)="onMouseLeave('contactButton')">Contact</button></li>
+        </ul>
+      </nav>
     </div>
-    <div>
-      <label for="password">Password:</label>
-      <input type="password" id="password" [(ngModel)]="password" name="password" required>
+  </header>
+
+  <!-- Main Content -->
+  <div class="row main-content">
+    <!-- Left Ads Column -->
+    <aside class="col-2 ads-column">
+      <div class="ad">Ad #1</div>
+      <div class="ad">Ad #2</div>
+    </aside>
+
+    <!-- Login Form Section -->
+    <main class="col-8 login-section">
+      <div class="login-container">
+        <h2 class="text-center">Login</h2>
+        <form (ngSubmit)="onLogin()" class="login-form">
+          <!-- Username Field -->
+          <input
+            matInput
+            type="text"
+            name="username"
+            placeholder="Enter your username"
+            required
+            [(ngModel)]="username"
+            class="mat-mdc-input-element"
+          />
+          <mat-error *ngIf="!username">Username is required</mat-error>
+
+          <!-- Password Field -->
+          <input
+            matInput
+            type="password"
+            name="password"
+            placeholder="Enter your password"
+            required
+            [(ngModel)]="password"
+            class="mat-mdc-input-element"
+          />
+          <mat-error *ngIf="!password">Password is required</mat-error>
+
+          <!-- Buttons Section -->
+          <div class="button-group">
+            <!-- Login Button -->
+            <button mat-raised-button
+                    class="btn btn-primary"
+                    type="submit"
+                    [disabled]="!username || !password"
+                    (mousemove)="onMouseMove($event, 'loginButton')"
+                    (mouseleave)="onMouseLeave('loginButton')">
+              Login
+            </button>
+          </div>
+        </form>
+      </div>
+    </main>
+
+    <!-- Right Ads Column -->
+    <aside class="col-2 ads-column">
+      <div class="ad">Ad #3</div>
+      <div class="ad">Ad #4</div>
+    </aside>
+  </div>
+
+  <!-- Footer -->
+  <footer class="row footer">
+    <div class="col-12">
+      <p>&copy; 2024 Client Cart. All rights reserved.</p>
     </div>
-    <div *ngIf="errorMessage" class="error">{{ errorMessage }}</div>
-    <button type="submit">Login</button>
-  </form>
+  </footer>
 </div>

@@ -6,6 +6,8 @@ import { CartComponent } from './components/cart/cart.component';
 import { ProductComponent } from "./components/product/product.component";
 import { RegisterComponent } from './register/register.component';
 import { CartItemsComponent } from './components/cart-linked-products/cart-linked-products.component';
+import { CategoriesComponent } from './components/categories/categories.component';
+import { SuppliersComponent } from './components/suppliers/suppliers.component';
 
 
 const routes: Routes = [
@@ -16,6 +18,8 @@ const routes: Routes = [
     { path: 'product', component: ProductComponent },
     { path: 'register', component: RegisterComponent },
     { path: 'payment', component: PaymentComponent },
+    { path: 'categories', component: CategoriesComponent },
+    { path: 'supplier', component: SuppliersComponent },
     { path: '', redirectTo: 'login', pathMatch: 'full' }, // Default route
 ];
 

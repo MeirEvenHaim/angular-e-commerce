@@ -1,47 +1,308 @@
+/* Global Styling */
+body {
+  display: flex;
+  justify-content: center; /* Centers horizontally */
+  align-items: center;     /* Centers vertically */
+  height: 100vh;           /* Full height of the viewport */
+  margin: 0;               /* Remove default margin */
+  background-color: #f0f0f0; /* Light background for the body */
+  font-family: 'Arial', sans-serif;
+}
+
+/* Ensure the container is centered in its parent */
+.container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 1200px;
+  padding: 30px;
+  background-color: #ffffff;
+  border-radius: 20px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  margin: 0 auto;
+
+}
+
+/* Header styles */
+header {
+  background-color: #898d91; /* Dark header background */
+  padding: 15px 0;
+  color: white;
+  text-align: center;
+  padding: 15px;
+  margin-top: 30px;
+  border-radius: 10px;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+}
+
+.navbar-brand {
+  font-size: 1.8em;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.navbar-menu {
+  list-style-type: none;
+  display: flex;
+  gap: 15px;
+}
+
+.navbar-menu li {
+  display: inline;
+}
+
+/* Navbar button styles for header */
+.nav-button {
+  background-color: #9b1c1c; /* Ruby Red */
+  color: #fff; /* White text */
+  padding: 10px 20px;
+  border-radius: 8px;
+  transition: all 0.3s ease; /* Smooth transition */
+  font-weight: bold;
+}
+
+/* Hover and active states for navbar buttons */
+.nav-button:hover {
+  background-color: #8a1616; /* Dark Ruby Red */
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
+}
+
+.nav-button:active {
+  background-color: #7a1212; /* Even darker Ruby Red */
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
+}
+
+/* Disabled navbar button */
+.nav-button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+/* Button styles for the form */
+.btn, .submit-button {
+  padding: 15px 30px;
+  font-size: 1.1em;
+  border-radius: 12px;
+  width: 100%;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease; /* Smooth transition */
+  border: none;
+  font-weight: bold; /* Make text bold for visibility */
+}
+
+/* Primary button (Ruby Red with White text) */
+.btn-primary, .submit-button {
+  background-color: #9b1c1c; /* Ruby Red */
+  color: #fff; /* White text */
+}
+
+/* Hover state for buttons (Dark Ruby Red) */
+.btn-primary:hover,.submit-button:hover {
+  background-color: #8a1616; /* Dark Ruby Red */
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2); /* Enhanced shadow on hover */
+  color : white;
+}
+
+/* Active state for buttons (Even darker Ruby Red when clicked) */
+.btn-primary:active, .submit-button:active {
+  background-color: #7a1212; /* Even darker Ruby Red */
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2); /* Reset shadow on active */
+}
+
+/* Disabled button styles */
+.btn-primary:disabled, .submit-button:disabled {
+  background-color: #ccc; /* Gray background when disabled */
+  cursor: not-allowed; /* Disable the cursor on disabled state */
+}
+
+/* Disabled navbar button */
+.navbar-menu button.nav-button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+/* Add space between buttons in the login form */
+.button-group button {
+  margin-right: 15px; /* Add margin between buttons */
+}
+
+.button-group button:last-child {
+  margin-right: 0; /* Remove margin from the last button */
+}
+
+/* Main Content Styling */
+.main-content {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  margin-top: 30px;
+}
+
+.ads-column {
+  flex: 1;
+  background-color: #f0f0f0;
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.ads-column .ad {
+  margin-bottom: 15px;
+  background-color: #ddd;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.login-section {
+  flex: 3;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .login-container {
-    max-width: 400px;
-    margin: 0 auto;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  background-color: #ffffff;
+  padding: 40px;
+  border-radius: 15px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 500px;
+}
+
+h2 {
+  font-size: 2em;
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+/* Form Elements */
+.form-label {
+  font-size: 1.1em;
+  font-weight: 600;
+  color: #444;
+  letter-spacing: 0.5px;
+}
+
+/* Consolidated and enhanced input styling */
+input[type="text"], input[type="password"], .form-control, input.mat-input-element {
+  width: 100%;
+  padding: 15px 20px;
+  font-size: 1.2em;
+  margin: 12px 0;
+  border-radius: 12px;
+  border: 2px solid #ccc;
+  background-color: #f3f3f3;
+  box-sizing: border-box;
+  transition: all 0.3s ease;
+  color: #333;
+}
+
+/* Focus and hover effect for all inputs */
+input[type="text"]:focus, input[type="password"]:focus,.form-control:focus, input.mat-input-element:focus {
+  outline: none;
+  border-color: #9b1c1c; /* Ruby Red Focus */
+  box-shadow: 0 0 12px rgba(155, 28, 28, 0.6);
+  background-color: #ffffff;
+}
+
+/* Disabled Styling */
+input:disabled, .form-control:disabled, input.mat-input-element:disabled {
+  background-color: #e0e0e0;
+  cursor: not-allowed;
+}
+
+/* Error Message Styling */
+.error {
+  color: #e74c3c;
+  font-size: 1em;
+  margin-top: 10px;
+}
+
+/* Footer Styling */
+footer {
+  background-color: #898d91;
+  color: white;
+  text-align: center;
+  padding: 15px;
+  margin-top: 30px;
+  border-radius: 10px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .navbar-menu {
+    flex-direction: column;
+    gap: 10px;
   }
-  
-  h2 {
-    text-align: center;
-  }
-  
-  form {
-    display: flex;
+
+  .main-content {
     flex-direction: column;
   }
-  
-  label {
-    margin-bottom: 5px;
+
+  .ads-column {
+    margin-bottom: 20px;
   }
-  
-  input {
-    margin-bottom: 15px;
+
+  .login-section {
+    padding: 20px;
+  }
+
+  .login-container {
+    padding: 20px;
+  }
+}
+
+/* Adjustments for Small Screens */
+@media (max-width: 480px) {
+  body {
     padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
   }
-  
-  button {
-    padding: 10px;
-    background-color: #28a745;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
+
+  .container {
+    padding: 20px;
   }
-  
-  button:hover {
-    background-color: #218838;
+
+  .login-container {
+    padding: 15px;
   }
-  
-  .error {
-    color: red;
-    font-size: 0.9em;
+
+  .navbar-menu a {
+    font-size: 1.1em;
   }
-  
+}
+
+/* Dark and Light Mode Button */
+.theme-toggle {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  background-color: #1c1c1c;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  padding: 10px;
+  cursor: pointer;
+  font-size: 20px;
+  transition: background-color 0.3s ease;
+}
+
+.theme-toggle:hover {
+  background-color: #333;
+}
+
+/* Active State for Links */
+.navbar-menu a:active {
+  color: #f0f0f0;
+  background-color: #444;
+  border-radius: 5px;
+}

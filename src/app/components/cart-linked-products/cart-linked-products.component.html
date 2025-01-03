@@ -6,7 +6,7 @@
 
   <!-- Add product form -->
   <div class="card mb-4">
-    <div class="card-header" style="background-color: #007bff; color: white;">
+    <div class="card-header" style="background-color: #007bff; color: white">
       <h4>Add Product to Cart</h4>
     </div>
     <div class="card-body">
@@ -54,32 +54,37 @@
   <!-- Cart items table -->
   <div *ngIf="cartItems.length > 0">
     <h3>Current Cart</h3>
-    <table class="table table-striped">
-      <thead>
-        <tr>
-          <th>Product Name</th>
-          <th>product ID</th>
-          <th>Quantity</th>
-          <th>Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let item of cartItems">
-          <td>{{ item.product_name }}</td>
-          <td>{{ item.id }}</td>
-          <td>{{ item.client_name }}</td>
-          <td>{{ item.quantity }}</td>
-          <td>
-            <input
-              type="number"
-              class="form-control"
-              [(ngModel)]="item.quantity"
-              (change)="updateQuantity(item, item.quantity)"
-              min="1"
-            />
-          </td>
-          <td>
-            <button
+    <table mat-table [dataSource]="cartItems">
+      <div *ngFor="let col of displayedColumns ;">
+        <ng-container matColumnDef={{col}}>
+          <th mat-header-cell *matHeaderCellDef>{{col}}</th>
+
+          <div *ngIf="col === 'actions'; else temp">
+            <td mat-cell *matCellDef="let item">
+                <button
+                id="removeItemButton{{item.id}}"
+                class="btn btn-danger"
+                (mousemove)="onMouseMove($event, 'removeItemButton' + item.id)"
+                (mouseleave)="onMouseLeave('removeItemButton' + item.id)"
+                [ngStyle]="buttonStyles['removeItemButton' + item.id]"
+                (click)="removeItem(item.id)"
+              >
+                Remove
+              </button>
+            </td>
+          </div>
+          <ng-template #temp>
+            <td mat-cell *matCellDef="let item">{{item[col]}}</td>
+          </ng-template>
+          
+        </ng-container>
+      </div>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+
+
+            <!-- <button
               id="removeItemButton{{item.id}}"
               class="btn btn-danger"
               (mousemove)="onMouseMove($event, 'removeItemButton' + item.id)"
@@ -88,14 +93,10 @@
               (click)="removeItem(item.id)"
             >
               Remove
-            </button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+            </button> -->
+
   </div>
 
-  <!-- No cart items -->
   <div *ngIf="cartItems.length === 0">
     <p>No items in the cart yet. Add products using the form above.</p>
   </div>

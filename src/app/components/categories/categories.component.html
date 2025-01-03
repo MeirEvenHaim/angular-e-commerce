@@ -1,0 +1,136 @@
+<header class="row header">
+  <div class="col-12">
+    <nav class="navbar">
+      <div class="navbar-brand">Client Cart</div>
+      <ul class="navbar-menu">
+        <li><button class="btn btn-primary nav-button"
+                    (mousemove)="onMouseMove($event, 'homeButton')"
+                    (mouseleave)="onMouseLeave('homeButton')">Home</button></li>
+        <li><button class="btn btn-primary nav-button"
+                    (mousemove)="onMouseMove($event, 'aboutButton')"
+                    (mouseleave)="onMouseLeave('aboutButton')">About</button></li>
+        <li><button class="btn btn-primary nav-button"
+                    (mousemove)="onMouseMove($event, 'contactButton')"
+                    (mouseleave)="onMouseLeave('contactButton')">Contact</button></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<!-- Toolbar Section -->
+<mat-toolbar color="primary">
+  <mat-icon matTooltip="Frying Steak Icon" aria-label="Frying Steak Icon">La meat</mat-icon>
+  <span>Category Management</span>
+  <span class="spacer"></span>
+  <mat-form-field appearance="fill" class="search-bar">
+    <mat-label>Search Categories</mat-label>
+    <input matInput placeholder="Search" [(ngModel)]="searchQuery" (keyup)="filterCategories()" />
+  </mat-form-field>
+  <button mat-icon-button (click)="createCategory()">
+    <mat-icon>add</mat-icon> <!-- Icon to create a new category -->
+  </button>
+</mat-toolbar>
+
+<!-- Main Content Section -->
+<div class="container">
+  <!-- Create or Update Category Form -->
+  <mat-card *ngIf="selectedCategory; else createCategoryForm" class="category-card">
+    <mat-card-header>
+      <mat-card-title>Update Category</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <form (ngSubmit)="updateCategory()">
+        <mat-form-field appearance="fill">
+          <mat-label>Category Name</mat-label>
+          <input matInput [(ngModel)]="selectedCategory.name" name="name" required
+            (mousemove)="onMouseMove($event, 'updateCategoryButton')"
+            (mouseleave)="onMouseLeave('updateCategoryButton')">
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Category Description</mat-label>
+          <textarea matInput [(ngModel)]="selectedCategory.description" name="description"></textarea>
+        </mat-form-field>
+
+        <button mat-raised-button color="primary" type="submit" [ngStyle]="buttonStyles['updateCategoryButton']">Update Category</button>
+      </form>
+    </mat-card-content>
+  </mat-card>
+
+  <!-- Create Category Form -->
+  <ng-template #createCategoryForm>
+    <mat-card class="category-card">
+      <mat-card-header>
+        <mat-card-title>Create Category</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <form (ngSubmit)="createCategory()">
+          <mat-form-field appearance="fill">
+            <mat-label>Category Name</mat-label>
+            <input matInput [(ngModel)]="newCategory.name" name="name" required
+              (mousemove)="onMouseMove($event, 'createCategoryButton')"
+              (mouseleave)="onMouseLeave('createCategoryButton')">
+          </mat-form-field>
+
+          <mat-form-field appearance="fill">
+            <mat-label>Category Description</mat-label>
+            <textarea matInput [(ngModel)]="newCategory.description" name="description"></textarea>
+          </mat-form-field>
+
+          <button mat-raised-button color="accent" type="submit" [ngStyle]="buttonStyles['createCategoryButton']">Create Category</button>
+        </form>
+      </mat-card-content>
+    </mat-card>
+  </ng-template>
+</div>
+
+<!-- Category List Section -->
+<div class="category-list">
+  <mat-card *ngFor="let category of categories" class="category-card">
+    <mat-card-header>
+      <mat-card-title>{{ category.name }}</mat-card-title>
+      <mat-card-subtitle>{{ category.description || 'No description available' }}</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-actions>
+      <button mat-button (click)="openDialog(category)"
+        (mousemove)="onMouseMove($event, 'viewCategoryButton')"
+        (mouseleave)="onMouseLeave('viewCategoryButton')"
+        [ngStyle]="buttonStyles['viewCategoryButton']">View Description</button>
+      <button mat-button (click)="selectedCategory = category"
+        (mousemove)="onMouseMove($event, 'editCategoryButton')"
+        (mouseleave)="onMouseLeave('editCategoryButton')"
+        [ngStyle]="buttonStyles['editCategoryButton']">Edit</button>
+      <button mat-button color="warn" (click)="openDeleteDialog(category)"
+        (mousemove)="onMouseMove($event, 'deleteCategoryButton')"
+        (mouseleave)="onMouseLeave('deleteCategoryButton')"
+        [ngStyle]="buttonStyles['deleteCategoryButton']">Delete</button>
+    </mat-card-actions>
+  </mat-card>
+</div>
+
+<!-- Dialog for Category Description -->
+<mat-dialog-content>
+  <ng-template #dialogTemplate>
+    <h1 mat-dialog-title>Category Description</h1>
+    <div mat-dialog-content>
+      <p>{{ selectedCategory?.description }}</p>
+    </div>
+    <mat-dialog-actions>
+      <button mat-button mat-dialog-close>Close</button>
+    </mat-dialog-actions>
+  </ng-template>
+</mat-dialog-content>
+
+<!-- Delete Confirmation Dialog -->
+<ng-template #deleteDialogTemplate let-dialogRef="dialogRef">
+  <h1 mat-dialog-title>Are you sure you want to delete this category?</h1>
+  <mat-dialog-actions>
+    <button mat-button (click)="deleteCategory(dialogRef)">Delete</button>
+    <button mat-button (click)="dialogRef.close()">Cancel</button>
+  </mat-dialog-actions>
+</ng-template>
+
+<!-- Footer Section -->
+<footer class="footer">
+  <span>Category Management System &copy; 2024</span>
+</footer>

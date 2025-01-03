@@ -26,8 +26,12 @@ import {MatFormFieldModule} from '@angular/material/form-field'
 import { MatInputModule } from '@angular/material/input';
 import { CartItemsComponent } from './components/cart-linked-products/cart-linked-products.component';
 import { HomepageComponent } from './homepage/homepage.component';
-
-
+import {MatTableModule} from '@angular/material/table';
+import {MatDialogModule,MatDialog} from '@angular/material/dialog';
+import { SuppliersComponent } from './components/suppliers/suppliers.component';
+import { CategoriesComponent } from './components/categories/categories.component';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatGridListModule } from '@angular/material/grid-list';
 
 
 @NgModule({
@@ -40,6 +44,9 @@ import { HomepageComponent } from './homepage/homepage.component';
     RegisterComponent,
     CartItemsComponent,
     HomepageComponent,
+    SuppliersComponent,
+    CategoriesComponent,
+
 
   ],
 
@@ -60,7 +67,11 @@ import { HomepageComponent } from './homepage/homepage.component';
     MatToolbarModule,
     MatIconModule,
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
+    MatTableModule,
+    MatDialogModule,
+    MatSnackBarModule,
+    MatGridListModule
   ],
   providers: [provideHttpClient(withFetch()), provideAnimationsAsync()], // No need to provide HttpClient here if not using withFetch
   bootstrap: [AppComponent]
