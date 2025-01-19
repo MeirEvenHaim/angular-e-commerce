@@ -36,12 +36,17 @@ export class CartService {
       );
   }
 
-  addProductToCart(cartId: number, productId: number, quantity: number): Observable<CartLinkedProduct> {
+  addProductToCart(cartId: number, productId: number,
+    quantity: number,
+    client_name: string ,
+    product_name: string): Observable<CartLinkedProduct> {
     // Stringify the values in the service method
     const body = {
       cart: cartId.toString(),    // Convert cartId to string
       product: productId.toString(),  // Convert productId to string
-      quantity: quantity.toString()  // Convert quantity to string
+      quantity: quantity.toString(),  // Convert quantity to string
+      client_Name: client_name.toString(),    // Convert cartId to string
+      product_Name: product_name.toString(),  // Convert productId to string
     };
     console.log('Sending request with body:', body);  // Debugging log to check the body
 

@@ -4,7 +4,6 @@ import { SuppliersService } from '../../services/suppliers.service';
 import { Suppliers } from '../../models';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-suppliers',

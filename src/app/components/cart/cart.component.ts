@@ -1,9 +1,11 @@
 import { CartService } from './../../services/cart.service';
-import { Component, OnInit,ViewChild,TemplateRef } from '@angular/core';
+import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
 import { Router } from '@angular/router'; // Import Router for navigation
 import { Cart } from '../../models';
 import { MatDialog } from '@angular/material/dialog';
 import { ChangeDetectorRef } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar'; // For success/error messages
+
 @Component({
   selector: 'app-cart',
   templateUrl: './cart.component.html',
@@ -11,28 +13,32 @@ import { ChangeDetectorRef } from '@angular/core';
 })
 export class CartComponent implements OnInit {
   carts: Cart[] = [];
+  dialogRef: any; // Variable to hold the reference to the dialog
+
   selectedCart: Cart | null = null;
   userId: string | null = localStorage.getItem('user_id');
   @ViewChild('dialogTemplate') dialogTemplate!: TemplateRef<any>;
 
   constructor(
+    private snackBar: MatSnackBar,
     private cartService: CartService,
-     private router: Router ,
-     private dialog : MatDialog,
-     private cdr: ChangeDetectorRef) {} // Inject Router
+    private router: Router,
+    private dialog: MatDialog,
+    private cdr: ChangeDetectorRef
+  ) {}
 
   ngOnInit(): void {
     this.fetchCarts();
   }
 
   fetchCarts(): void {
-    this.cartService.getCarts().subscribe(
+    this.cartService.getCarts();  // Fetch the list of carts
+    this.cartService.carts$.subscribe(
       (data: Cart[]) => {
-        console.log('data', data);
-
+        console.log('Carts fetched:', data);
         this.carts = data;
       },
-      (error) => {
+      (error: any) => {
         console.error('Error fetching carts', error);
       }
     );
@@ -43,40 +49,15 @@ export class CartComponent implements OnInit {
 
     this.cartService.getCart(id).subscribe(
       (data) => {
-        // Set selectedCart to the fetched data
         this.selectedCart = data;
+        this.cdr.detectChanges(); // Trigger change detection
 
-        // Trigger change detection to ensure template updates
-        this.cdr.detectChanges();
-
-        // Open the dialog after data is ready
-        if (this.dialogTemplate) {
-          this.dialog.open(this.dialogTemplate, {
-            data: this.selectedCart, // Pass the loaded data
-          });
-        }
+        this.dialogRef = this.dialog.open(this.dialogTemplate, {
+          data: this.selectedCart, // Pass the loaded data to the dialog
+        });
       },
       (error) => {
         console.error('Error fetching cart', error);
-      }
-    );
-  }
-  selectCartForPayment(cart: Cart): void {
-    this.router.navigate(['/payment'], { state: { cart } });
-  }
-
-  createCart(id: string): void {
-    const newCart: Cart = {
-      user: +id, // Set a default client ID or fetch dynamically
-    };
-    console.log(newCart, 'hee');
-
-    this.cartService.createCart(newCart).subscribe(
-      (data: Cart) => {
-        this.carts.push(data);
-      },
-      (error) => {
-        console.error('Error creating cart', error);
       }
     );
   }
@@ -84,16 +65,73 @@ export class CartComponent implements OnInit {
   deleteCart(id: number): void {
     this.cartService.deleteCart(id).subscribe(
       () => {
+        // Remove the deleted cart from the list
         this.carts = this.carts.filter((cart) => cart.id !== id);
+        console.log('Deleted cart with ID:', id);
+
+        // Close the dialog after successful deletion
+        if (this.dialogRef) {
+          this.dialogRef.close(); // Close the dialog
+        }
+
+        // Show success message
+        this.showSuccessMessage('Cart deleted successfully!');
+        this.fetchCarts();  // Fetch updated cart list
       },
       (error) => {
         console.error('Error deleting cart', error);
+        this.showErrorMessage('Failed to delete cart.');
       }
     );
   }
 
-  // Method to navigate to the shop
+  showSuccessMessage(message: string): void {
+    this.snackBar.open(message, 'Close', {
+      duration: 3000,
+      panelClass: ['success-snackbar'],
+    });
+  }
+
+  showErrorMessage(message: string): void {
+    this.snackBar.open(message, 'Close', {
+      duration: 3000,
+      panelClass: ['error-snackbar'],
+    });
+  }
+
+  selectCartForPayment(cart: Cart): void {
+    // Navigate to the payment page and pass the cart as state
+    console.log("cart:", cart);
+
+    this.router.navigate(['/payment'], { state: { cart: cart } });
+  }
+  selectCartForShipping(cart: Cart): void {
+    // Navigate to the shipping page and pass the cartId as query params
+    this.router.navigate(['/shipping'],{ state: { cartId: cart.id } });
+  }
+  createCart(id: string): void {
+    // Create a new cart with the given user ID
+    const newCart: Cart = {
+      user: +id, // Set the client ID (make sure the ID is valid)
+    };
+    console.log('Creating cart:', newCart);
+
+    this.cartService.createCart(newCart).subscribe(
+      (data: Cart) => {
+        this.carts.push(data); // Add newly created cart to the list
+        console.log('Cart created:', data);
+        this.showSuccessMessage('Cart created successfully!');
+        this.fetchCarts(); // Fetch updated carts list after creation
+      },
+      (error) => {
+        this.showErrorMessage('Failed to create cart.');
+        console.error('Error creating cart', error);
+      }
+    );
+    this.fetchCarts()
+  }
+
   goToShop(): void {
-    this.router.navigate(['/product']); // Adjust the path according to your routing setup
+    this.router.navigate(['/product']); // Navigate to the shop page
   }
 }

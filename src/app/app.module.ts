@@ -1,14 +1,13 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { AppRoutingModule } from './app-routing.module'; // Your routing module
-import { RouterModule } from '@angular/router'; // RouterModule for routing
-import { HttpClientModule } from '@angular/common/http'; // Import HttpClientModule
-import { FormsModule } from '@angular/forms'; // Import FormsModule for template-driven forms
-import { ReactiveFormsModule } from '@angular/forms'; // Import ReactiveFormsModule if using reactive forms
+import { AppRoutingModule } from './app-routing.module';
+import { RouterModule } from '@angular/router';
+import { HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
-// Import other components here
-import { LoginComponent } from './components/login/login.component'; // Example import
-import { PaymentComponent } from './components/payment/payment.component'; // Example import
+import { LoginComponent } from './components/login/login.component';
+import { PaymentComponent } from './components/payment/payment.component';
 import { NgxPayPalModule } from 'ngx-paypal';
 import { provideHttpClient, withFetch } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
@@ -27,13 +26,15 @@ import { MatInputModule } from '@angular/material/input';
 import { CartItemsComponent } from './components/cart-linked-products/cart-linked-products.component';
 import { HomepageComponent } from './homepage/homepage.component';
 import {MatTableModule} from '@angular/material/table';
-import {MatDialogModule,MatDialog} from '@angular/material/dialog';
+import {MatDialogModule} from '@angular/material/dialog';
 import { SuppliersComponent } from './components/suppliers/suppliers.component';
 import { CategoriesComponent } from './components/categories/categories.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatGridListModule } from '@angular/material/grid-list';
-
-
+import { ShippingComponent } from './components/shipping/shipping.component';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatSelectModule } from '@angular/material/select';
 @NgModule({
   declarations: [
     AppComponent,
@@ -46,6 +47,7 @@ import { MatGridListModule } from '@angular/material/grid-list';
     HomepageComponent,
     SuppliersComponent,
     CategoriesComponent,
+    ShippingComponent,
 
 
   ],
@@ -71,7 +73,10 @@ import { MatGridListModule } from '@angular/material/grid-list';
     MatTableModule,
     MatDialogModule,
     MatSnackBarModule,
-    MatGridListModule
+    MatGridListModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatSelectModule,
   ],
   providers: [provideHttpClient(withFetch()), provideAnimationsAsync()], // No need to provide HttpClient here if not using withFetch
   bootstrap: [AppComponent]

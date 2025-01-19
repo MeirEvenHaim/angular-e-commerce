@@ -36,6 +36,13 @@
           >
             Proceed to Payment
           </button>
+          <button
+          class="select-cart"
+          *ngIf="!cart.payment"
+          (click)="selectCartForShipping(cart)"
+        >
+          Proceed to shipping details
+        </button>
         </div>
       </div>
     </div>

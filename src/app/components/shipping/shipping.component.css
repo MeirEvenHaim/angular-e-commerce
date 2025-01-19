@@ -1,0 +1,24 @@
+.container {
+  margin: 20px auto;
+  max-width: 1000px;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.shipping-list table {
+  width: 100%;
+}
+
+.full-width {
+  width: 100%;
+}
+
+mat-divider {
+  margin: 20px 0;
+}
+
+button {
+  margin: 5px;
+}

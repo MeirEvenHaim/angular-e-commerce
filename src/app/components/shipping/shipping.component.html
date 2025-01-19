@@ -1,0 +1,158 @@
+<div class="container mt-4">
+  <!-- Error Message -->
+  <div *ngIf="errorMessage" class="alert alert-danger">
+    {{ errorMessage }}
+  </div>
+
+  <!-- Loading Indicator -->
+  <div *ngIf="loading" class="spinner-border text-primary" role="status">
+    <span class="sr-only">Loading...</span>
+  </div>
+
+  <!-- New Shipping Form -->
+  <div *ngIf="!selectedShipping">
+    <h3>Create Shipping Schedule</h3>
+    <form (ngSubmit)="createShipping()">
+      <div class="form-group">
+        <label for="shippingAddress">Shipping Address</label>
+        <input
+          type="text"
+          id="shippingAddress"
+          class="form-control"
+          [(ngModel)]="newShipping.shipping_address"
+          name="shippingAddress"
+          required
+        />
+      </div>
+      <div class="form-group">
+        <label for="shippingDate">Shipping Date</label>
+        <input
+          type="date"
+          id="shippingDate"
+          class="form-control"
+          [(ngModel)]="newShipping.shipping_date"
+          name="shippingDate"
+          required
+        />
+      </div>
+      <div class="form-group">
+        <label for="shippingMethod">Shipping Method</label>
+        <select
+          id="shippingMethod"
+          class="form-control"
+          [(ngModel)]="newShipping.shipping_method"
+          name="shippingMethod"
+        >
+          <option value="Standard">Standard</option>
+          <option value="Express">Express</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="deliveryDate">Delivery Date</label>
+        <input
+          type="date"
+          id="deliveryDate"
+          class="form-control"
+          [(ngModel)]="newShipping.delivery_date"
+          name="deliveryDate"
+          required
+        />
+      </div>
+      <button type="submit" class="btn btn-primary" [disabled]="loading">Create Shipping</button>
+    </form>
+  </div>
+
+  <!-- Edit Shipping Form -->
+  <div *ngIf="selectedShipping">
+    <h3>Edit Shipping Schedule</h3>
+    <form (ngSubmit)="updateShipping()">
+      <div class="form-group">
+        <label for="editShippingAddress">Shipping Address</label>
+        <input
+          type="text"
+          id="editShippingAddress"
+          class="form-control"
+          [(ngModel)]="selectedShipping.shipping_address"
+          name="editShippingAddress"
+          required
+        />
+      </div>
+      <div class="form-group">
+        <label for="editShippingDate">Shipping Date</label>
+        <input
+          type="date"
+          id="editShippingDate"
+          class="form-control"
+          [(ngModel)]="selectedShipping.shipping_date"
+          name="editShippingDate"
+          required
+        />
+      </div>
+      <div class="form-group">
+        <label for="editShippingMethod">Shipping Method</label>
+        <select
+          id="editShippingMethod"
+          class="form-control"
+          [(ngModel)]="selectedShipping.shipping_method"
+          name="editShippingMethod"
+        >
+          <option value="Standard">Standard</option>
+          <option value="Express">Express</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="editDeliveryDate">Delivery Date</label>
+        <input
+          type="date"
+          id="editDeliveryDate"
+          class="form-control"
+          [(ngModel)]="selectedShipping.delivery_date"
+          name="editDeliveryDate"
+          required
+        />
+      </div>
+      <button type="submit" class="btn btn-primary" [disabled]="loading">Update Shipping</button>
+      <button type="button" class="btn btn-secondary ml-2" (click)="deselectShipping()">Cancel</button>
+    </form>
+  </div>
+
+  <!-- Shipping List -->
+  <h3 class="mt-4">Shipping Schedule List</h3>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Shipping Address</th>
+        <th>Shipping Date</th>
+        <th>Shipping Method</th>
+        <th>Delivery Date</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let shipping of shippings">
+        <td>{{ shipping.id }}</td>
+        <td>{{ shipping.shipping_address }}</td>
+        <td>{{ shipping.shipping_date | date }}</td>
+        <td>{{ shipping.shipping_method }}</td>
+        <td>{{ shipping.delivery_date | date }}</td>
+        <td>
+          <button
+            class="btn btn-warning"
+            (click)="selectShipping(shipping)"
+            [disabled]="loading"
+          >
+            Edit
+          </button>
+          <button
+            class="btn btn-danger"
+            (click)="deleteShipping(shipping.id!)"
+            [disabled]="loading"
+          >
+            Delete
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

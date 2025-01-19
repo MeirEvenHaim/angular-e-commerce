@@ -3,7 +3,7 @@
   export interface CartLinkedProduct {
     id : number ;
     cart_id: Cart[];  // Cart ID reference
-    product_id: number;  // Product ID reference
+    product_id: Product[];  // Product ID reference
     product_name? : string;
     product_price? : number;
     client_name? : string;
@@ -30,6 +30,7 @@ export interface Product {
 
 export interface Cart {
   id?: number;
+  locked? : boolean
   client_name?: string;     // Optional field to match the client name from the user
   user?: number;            // ID of the user who owns the cart
   cart_link_product?: { // Array of products in the cart
@@ -90,12 +91,15 @@ export interface Suppliers {
   }
 
 
+  export interface Shipping {
+    id? : number;
+    cart_id: number;  // Changed from Cart[] to a single Cart instance (since it's OneToOne relationship)
+    shipping_address: string;
+    shipping_date: Date | null;  // Date in ISO format or null
+    shipping_method: 'Standard' | 'Express';  // Match the choices from the Django model
+    delivery_date: Date | null;  // Date in ISO format or null
 
-
-
-
-
-
+  }
 
 
 

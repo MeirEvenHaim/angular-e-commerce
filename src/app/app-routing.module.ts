@@ -8,6 +8,7 @@ import { RegisterComponent } from './register/register.component';
 import { CartItemsComponent } from './components/cart-linked-products/cart-linked-products.component';
 import { CategoriesComponent } from './components/categories/categories.component';
 import { SuppliersComponent } from './components/suppliers/suppliers.component';
+import { ShippingComponent } from './components/shipping/shipping.component';
 
 
 const routes: Routes = [
@@ -20,6 +21,7 @@ const routes: Routes = [
     { path: 'payment', component: PaymentComponent },
     { path: 'categories', component: CategoriesComponent },
     { path: 'supplier', component: SuppliersComponent },
+    { path: 'shipping', component: ShippingComponent },
     { path: '', redirectTo: 'login', pathMatch: 'full' }, // Default route
 ];
 
