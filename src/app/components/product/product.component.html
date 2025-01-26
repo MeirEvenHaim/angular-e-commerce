@@ -98,30 +98,23 @@
           required
         />
       </div>
-      <div class="form-group">
-        <label for="productSupplier">Supplier</label>
-        <input
-          type="text"
-          id="productSupplier"
-          [(ngModel)]="newProduct.supplier_id"
-          name="supplier"
-          class="form-control"
-          placeholder="Enter supplier name"
-          required
-        />
-      </div>
-      <div class="form-group">
-        <label for="productCategory">Category</label>
-        <input
-          type="text"
-          id="productCategory"
-          [(ngModel)]="newProduct.category_id"
-          name="category"
-          class="form-control"
-          placeholder="Enter category name"
-          required
-        />
-      </div>
+      <mat-form-field>
+        <mat-label>Categories</mat-label>
+        <mat-select [formControl]="categories_list">
+          <mat-option *ngFor="let category of categories" [value]="category.id">
+            {{ category.id }}. {{ category.name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Supplier</mat-label>
+        <mat-select [formControl]="supplier_list">
+          <mat-option *ngFor="let supplier of suppliers" [value]="supplier.id">
+            {{ supplier.id }}. {{ supplier.name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
       <div class="form-group">
         <label for="productImage">Image</label>
         <input

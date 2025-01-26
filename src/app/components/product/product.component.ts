@@ -1,6 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductService } from '../../services/product.service';
+import { SuppliersService } from '../../services/suppliers.service';
+import { CategoriesService } from '../../services/categories.service';
+import { Categories } from '../../models';
+import { Suppliers } from '../../models';
 import { Product } from '../../models';
+import { FormControl  } from '@angular/forms';
 
 @Component({
   selector: 'app-product',
@@ -8,6 +13,10 @@ import { Product } from '../../models';
   styleUrls: ['./product.component.css'],
 })
 export class ProductComponent implements OnInit {
+  supplier_list = new FormControl('');
+  categories_list = new FormControl('');
+  categories: Categories[] = [];
+  suppliers: Suppliers[] = [];
   products: Product[] = [];
   newProduct: Product = {
     name: '',
@@ -20,17 +29,45 @@ export class ProductComponent implements OnInit {
     category: null,
     supplier: null,
   };
-  selectedFile: File | null = null; // Variable to store the selected file
-  isAdmin: boolean = false; // Check if user is admin
-  editProductId: number | null = null; // Track product being edited
+  selectedFile: File | null = null;
+  isAdmin: boolean = false;
+  editProductId: number | null = null;
 
   constructor(
     private productService: ProductService,
+    private suppliersService: SuppliersService,
+    private categoriesService: CategoriesService
   ) {}
 
   ngOnInit(): void {
     this.fetchProducts();
     this.checkAdminStatus(); // Check if admin for conditional rendering
+  }
+
+  // Load all categories
+  loadCategories(): void {
+    this.categoriesService.CategoriesMenu().subscribe(
+      (data: Categories[]) => {
+        console.log('data', data);
+
+        this.categories = data;
+      },
+      (error) => {
+        console.error('Error fetching carts', error);
+      }
+    );
+  }
+  loadSupplier(): void {
+    this.suppliersService.SuppliersMenu().subscribe(
+      (data: Suppliers[]) => {
+        console.log('data', data);
+
+        this.suppliers = data;
+      },
+      (error) => {
+        console.error('Error fetching carts', error);
+      }
+    );
   }
 
   fetchProducts(): void {
@@ -44,6 +81,8 @@ export class ProductComponent implements OnInit {
               ? parseFloat(product.price)
               : product.price, // Convert if it's a string
         }));
+        this.loadCategories();
+        this.loadSupplier();
         console.log('Fetched products:', this.products);
       },
       (error) => {
@@ -60,38 +99,32 @@ export class ProductComponent implements OnInit {
     }
   }
 
-  // Add new product or update an existing one
   addProduct(): void {
     if (!this.isAdmin) {
       console.error('User does not have permission to add products');
-      return; // Exit if not admin
+      return;
     }
 
-    // Log the new product data and file before sending it to the service
+    // Convert supplier_id and category_id to numbers (if they are not null)
+    this.newProduct.supplier_id = this.supplier_list.value ? Number(this.supplier_list.value) : null;
+    this.newProduct.category_id = this.categories_list.value ? Number(this.categories_list.value) : null;
+
     console.log('Product data before sending:', this.newProduct);
     console.log('File data before sending:', this.selectedFile);
-    // We log here to ensure the product and file data is correct before calling the service
 
     if (this.editProductId !== null) {
-      this.updateProduct(
-        this.editProductId,
-        this.newProduct,
-        this.selectedFile
-      ); // Pass selected file
+      this.updateProduct(this.editProductId, this.newProduct, this.selectedFile);
     } else {
-      this.productService
-        .createProduct(this.newProduct, this.selectedFile ?? null)
-        .subscribe(
-          // Use null if selectedFile is undefined
-          (data) => {
-            console.log('Product created:', data);
-            this.fetchProducts(); // Refresh product list
-            this.resetForm();
-          },
-          (error) => {
-            console.error('Error adding product:', error);
-          }
-        );
+      this.productService.createProduct(this.newProduct, this.selectedFile ?? null).subscribe(
+        (data) => {
+          console.log('Product created:', data);
+          this.fetchProducts();
+          this.resetForm();
+        },
+        (error) => {
+          console.error('Error adding product:', error);
+        }
+      );
     }
   }
 
@@ -186,13 +219,12 @@ export class ProductComponent implements OnInit {
   }
 
   // product client list in cart methodes
-  addedproducts(product_id : number): void {
+  addedproducts(product_id: number): void {
     // this.cartProductListService.addToCart(cartproducts);
-    console.log("product_id", product_id );
+    console.log('product_id', product_id);
 
-    let quantity = (document.getElementById("quantity") as HTMLInputElement)?.value!;
-    console.log(quantity, "lololol");
-
-}
-
+    let quantity = (document.getElementById('quantity') as HTMLInputElement)
+      ?.value!;
+    console.log(quantity, 'lololol');
+  }
 }
