@@ -1,7 +1,7 @@
 
 import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
-import { SuppliersService } from '../../services/suppliers.service';
-import { Suppliers } from '../../models';
+import { SuppliersService } from '../../services copy/supplier_services/suppliers.service';
+import { Suppliers } from '../../models file/supplierModel';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 

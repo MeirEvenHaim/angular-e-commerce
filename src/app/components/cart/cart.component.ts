@@ -1,7 +1,7 @@
-import { CartService } from './../../services/cart.service';
+import { CartService } from '../../services copy/profile_service/cart.service';
 import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
 import { Router } from '@angular/router'; // Import Router for navigation
-import { Cart } from '../../models';
+import { Cart } from '../../models file/CartModel';
 import { MatDialog } from '@angular/material/dialog';
 import { ChangeDetectorRef } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar'; // For success/error messages

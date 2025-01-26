@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { ProductService } from '../../services/product.service';
-import { SuppliersService } from '../../services/suppliers.service';
-import { CategoriesService } from '../../services/categories.service';
-import { Categories } from '../../models';
-import { Suppliers } from '../../models';
-import { Product } from '../../models';
+import { ProductService } from '../../services copy/product_services/product.service';
+import { SuppliersService } from '../../services copy/supplier_services/suppliers.service';
+import { CategoriesService } from '../../services copy/categories_service/categories.service';
+import { Categories } from '../../models file/categoriesModel';
+import { Suppliers } from '../../models file/supplierModel';
+import { Product } from '../../models file/productModel';
 import { FormControl  } from '@angular/forms';
 
 @Component({

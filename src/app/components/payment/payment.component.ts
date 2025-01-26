@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { CartService } from '../../services/cart.service';
-import { Cart } from '../../models';
-import { PaymentService } from '../../services/payment.service'; // Import the payment service
+import { CartService } from '../../services copy/profile_service/cart.service';
+import { Cart } from '../../models file/CartModel';
+import { PaymentService } from '../../services copy/payment_service/payment.service';
 import { Router } from '@angular/router'; // For navigation
 
 declare const paypal: any; // Declare PayPal SDK global variable

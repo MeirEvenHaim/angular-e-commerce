@@ -1,7 +1,7 @@
 
 import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
-import { CategoriesService } from '../../services/categories.service';
-import { Categories } from '../../models';
+import { CategoriesService } from '../../services copy/categories_service/categories.service';
+import { Categories } from '../../models file/categoriesModel';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 

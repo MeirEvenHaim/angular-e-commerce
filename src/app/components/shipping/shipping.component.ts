@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ShippingService } from '../../services/shipping.service';
-import { Cart, Shipping } from '../../models';
+import { ShippingService } from '../../services copy/shipping_services/shipping.service';
+import { Shipping } from '../../models file/shippingModel';
 import { Router } from '@angular/router'; // For navigation
 import { NgForm } from '@angular/forms';
 
