@@ -1,194 +1,199 @@
-<div class="container-fluid">
-  <!-- Header -->
-  <header class="bg-primary text-white py-3 mb-4">
-    <div class="d-flex justify-content-between align-items-center">
-      <h1 class="ms-3">Supplier Management</h1>
-      <nav class="me-3">
-        <button mat-raised-button color="accent" routerLink="/dashboard">Dashboard</button>
-        <button mat-raised-button color="accent" routerLink="/products">Products</button>
-        <button mat-raised-button color="accent" routerLink="/orders">Orders</button>
-        <button mat-raised-button color="accent" routerLink="/suppliers">Suppliers</button>
-      </nav>
+<div class="min-h-screen bg-gray-50">
+  <!-- Enhanced Header Section -->
+  <header class="sticky top-0 z-50 bg-white border-b shadow-sm">
+    <div class="container mx-auto">
+      <div class="flex justify-between items-center h-16 px-4">
+        <div class="flex items-center space-x-4">
+          <h1 class="text-xl font-semibold text-gray-900">Supplier Management</h1>
+        </div>
+
+        <nav class="flex items-center space-x-3">
+          <button mat-raised-button color="primary" routerLink="/dashboard"
+                  class="mat-elevation-z0">
+            Dashboard
+          </button>
+          <button mat-raised-button color="primary" routerLink="/products"
+                  class="mat-elevation-z0">
+            Products
+          </button>
+          <button mat-raised-button color="primary" routerLink="/orders"
+                  class="mat-elevation-z0">
+            Orders
+          </button>
+          <button mat-raised-button color="primary" routerLink="/suppliers"
+                  class="mat-elevation-z0">
+            Suppliers
+          </button>
+        </nav>
+      </div>
     </div>
   </header>
 
-  <!-- Search Bar -->
-  <div class="row mb-4">
-    <div class="col-12">
-      <mat-form-field class="w-100">
-        <mat-label>Search for a supplier...</mat-label>
-        <input
-          matInput
-          [(ngModel)]="searchQuery"
-          (input)="FilterSupplier()"
-          class="form-control"
-        />
-      </mat-form-field>
+  <div class="container mx-auto px-4 py-6">
+    <div class="flex flex-col lg:flex-row gap-6">
+      <!-- Main Content Area -->
+      <main class="flex-1">
+        <!-- Enhanced Search Bar -->
+        <div class="mb-6 flex flex-col sm:flex-row gap-4">
+          <mat-form-field appearance="outline" class="w-full">
+            <mat-label>Search for a supplier...</mat-label>
+            <input matInput [(ngModel)]="searchQuery" (input)="FilterSupplier()" />
+            <mat-icon matPrefix>search</mat-icon>
+          </mat-form-field>
+        </div>
+
+        <!-- Enhanced Supplier Cards Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <mat-card *ngFor="let supplier of filteredCategories"
+                    class="h-full mat-elevation-z1 hover:mat-elevation-z4 transition-shadow">
+            <mat-card-header>
+              <mat-card-title>{{ supplier.name }}</mat-card-title>
+            </mat-card-header>
+
+            <mat-card-content class="pt-4">
+              <div class="space-y-3">
+                <p class="flex justify-between">
+                  <span class="text-gray-600">ID:</span>
+                  <span>{{ supplier.id }}</span>
+                </p>
+                <p class="flex justify-between">
+                  <span class="text-gray-600">Address:</span>
+                  <span>{{ supplier.address }}</span>
+                </p>
+                <p class="flex justify-between">
+                  <span class="text-gray-600">Phone:</span>
+                  <span>{{ supplier.phone_number }}</span>
+                </p>
+                <p class="flex justify-between">
+                  <span class="text-gray-600">Email:</span>
+                  <span>{{ supplier.contact_email }}</span>
+                </p>
+              </div>
+            </mat-card-content>
+
+            <mat-card-actions class="flex justify-end gap-2 p-4">
+              <button mat-raised-button color="primary" (click)="openDialog(supplier)">
+                <mat-icon>edit</mat-icon>
+                Edit
+              </button>
+              <button mat-raised-button color="warn" (click)="openDeleteDialog(supplier)">
+                <mat-icon>delete</mat-icon>
+                Delete
+              </button>
+            </mat-card-actions>
+          </mat-card>
+        </div>
+
+        <!-- Enhanced Create Supplier Form -->
+        <mat-card class="mt-8">
+          <mat-card-header>
+            <mat-card-title>Create a New Supplier</mat-card-title>
+          </mat-card-header>
+
+          <mat-card-content class="p-4">
+            <form #createForm="ngForm" (ngSubmit)="createsuppliers()" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <mat-form-field appearance="outline">
+                <mat-label>Name</mat-label>
+                <input matInput [(ngModel)]="newsuppliers.name" name="name" required />
+                <mat-error *ngIf="createForm.form.get('name')?.invalid">Name is required</mat-error>
+              </mat-form-field>
+
+              <mat-form-field appearance="outline">
+                <mat-label>Address</mat-label>
+                <input matInput [(ngModel)]="newsuppliers.address" name="address" required />
+                <mat-error *ngIf="createForm.form.get('address')?.invalid">Address is required</mat-error>
+              </mat-form-field>
+
+              <mat-form-field appearance="outline">
+                <mat-label>Phone Number</mat-label>
+                <input matInput type="tel" [(ngModel)]="newsuppliers.phone_number" name="phone_number" required />
+                <mat-error *ngIf="createForm.form.get('phone_number')?.invalid">Phone number is required</mat-error>
+              </mat-form-field>
+
+              <mat-form-field appearance="outline">
+                <mat-label>Email</mat-label>
+                <input matInput type="email" [(ngModel)]="newsuppliers.contact_email" name="contact_email" required />
+                <mat-error *ngIf="createForm.form.get('contact_email')?.invalid">Valid email is required</mat-error>
+              </mat-form-field>
+
+              <div class="md:col-span-2">
+                <button mat-raised-button color="primary" [disabled]="!createForm.form.valid" class="w-full">
+                  <mat-icon>add</mat-icon>
+                  Create Supplier
+                </button>
+              </div>
+            </form>
+          </mat-card-content>
+        </mat-card>
+      </main>
+
+      <!-- Enhanced Sidebar -->
+      <aside class="lg:w-80">
+        <mat-card class="mb-4">
+          <mat-card-header>
+            <mat-card-title>Advertisements</mat-card-title>
+          </mat-card-header>
+          <mat-card-content class="p-4 space-y-4">
+            <div class="p-4 bg-gray-100 rounded">Ad #3</div>
+            <div class="p-4 bg-gray-100 rounded">Ad #4</div>
+          </mat-card-content>
+        </mat-card>
+      </aside>
     </div>
   </div>
 
-  <!-- Supplier Cards -->
-  <div class="row">
-    <div
-      *ngFor="let supplier of filteredCategories"
-      class="col-md-4 mb-3"
-    >
-      <mat-card class="h-100">
-        <mat-card-header>
-          <mat-card-title>{{ supplier.name }}</mat-card-title>
-        </mat-card-header>
-        <mat-card-content>
-          <p><strong>id:</strong> {{ supplier.id }}</p>
-          <p><strong>Address:</strong> {{ supplier.address }}</p>
-          <p><strong>Phone:</strong> {{ supplier.phone_number }}</p>
-          <p><strong>Email:</strong> {{ supplier.contact_email }}</p>
-        </mat-card-content>
-        <mat-card-actions>
-          <button
-            mat-raised-button
-            color="primary"
-            (click)="openDialog(supplier)"
-          >
-            Edit
-          </button>
-          <button
-            mat-raised-button
-            color="warn"
-            (click)="openDeleteDialog(supplier)"
-          >
-            Delete
-          </button>
-        </mat-card-actions>
-      </mat-card>
-    </div>
-  </div>
-
-  <!-- Create Supplier Form -->
-  <div class="row mt-5">
-    <div class="col-12">
-      <h3>Create a New Supplier</h3>
-      <form #createForm="ngForm" (ngSubmit)="createsuppliers()">
-        <mat-form-field class="w-100">
-          <mat-label>Name</mat-label>
-          <input
-            matInput
-            type="text"
-            [(ngModel)]="newsuppliers.name"
-            name="name"
-            required
-          />
-        </mat-form-field>
-        <mat-form-field class="w-100">
-          <mat-label>Address</mat-label>
-          <input
-            matInput
-            type="text"
-            [(ngModel)]="newsuppliers.address"
-            name="address"
-            required
-          />
-        </mat-form-field>
-        <mat-form-field class="w-100">
-          <mat-label>Phone Number</mat-label>
-          <input
-            matInput
-            type="number"
-            [(ngModel)]="newsuppliers.phone_number"
-            name="phone_number"
-            required
-          />
-        </mat-form-field>
-        <mat-form-field class="w-100">
-          <mat-label>Email</mat-label>
-          <input
-            matInput
-            type="email"
-            [(ngModel)]="newsuppliers.contact_email"
-            name="contact_email"
-            required
-          />
-        </mat-form-field>
-        <button mat-raised-button color="primary" [disabled]="!createForm.form.valid">
-          Create Supplier
-        </button>
-      </form>
-    </div>
-  </div>
-
-  <!-- Update Dialog -->
+  <!-- Enhanced Dialog Templates -->
   <ng-template #dialogTemplate>
     <h2 mat-dialog-title>Update Supplier</h2>
-    <div mat-dialog-content>
-      <form #editForm="ngForm">
-        <mat-form-field class="w-100">
+    <mat-dialog-content class="p-4">
+      <form #editForm="ngForm" class="grid gap-4">
+        <mat-form-field appearance="outline">
           <mat-label>Name</mat-label>
-          <input
-            matInput
-            type="text"
-            [(ngModel)]="selectedsupplier!.name"
-            name="name"
-            required
-          />
+          <input matInput [(ngModel)]="selectedsupplier!.name" name="name" required />
         </mat-form-field>
-        <mat-form-field class="w-100">
+
+        <mat-form-field appearance="outline">
           <mat-label>Address</mat-label>
-          <input
-            matInput
-            type="text"
-            [(ngModel)]="selectedsupplier!.address"
-            name="address"
-            required
-          />
+          <input matInput [(ngModel)]="selectedsupplier!.address" name="address" required />
         </mat-form-field>
-        <mat-form-field class="w-100">
+
+        <mat-form-field appearance="outline">
           <mat-label>Phone Number</mat-label>
-          <input
-            matInput
-            type="number"
-            [(ngModel)]="selectedsupplier!.phone_number"
-            name="phone_number"
-            required
-          />
+          <input matInput type="tel" [(ngModel)]="selectedsupplier!.phone_number" name="phone_number" required />
         </mat-form-field>
-        <mat-form-field class="w-100">
+
+        <mat-form-field appearance="outline">
           <mat-label>Email</mat-label>
-          <input
-            matInput
-            type="email"
-            [(ngModel)]="selectedsupplier!.contact_email"
-            name="contact_email"
-            required
-          />
+          <input matInput type="email" [(ngModel)]="selectedsupplier!.contact_email" name="contact_email" required />
         </mat-form-field>
       </form>
-    </div>
-    <div mat-dialog-actions>
-      <button mat-button (click)="updatesupplier()" [disabled]="!editForm.form.valid">
-        Save
-      </button>
+    </mat-dialog-content>
+    <mat-dialog-actions align="end">
       <button mat-button mat-dialog-close>Cancel</button>
-    </div>
+      <button mat-raised-button color="primary" (click)="updatesupplier()" [disabled]="!editForm.form.valid">
+        Save Changes
+      </button>
+    </mat-dialog-actions>
   </ng-template>
 
-  <!-- Delete Dialog -->
   <ng-template #deleteDialogTemplate>
     <h2 mat-dialog-title>Confirm Delete</h2>
-    <div mat-dialog-content>
-      Are you sure you want to delete {{ selectedsupplier?.name }}?
-    </div>
-    <div mat-dialog-actions>
-      <button mat-button (click)="deletesupplier(selectedsupplier!.id!)">
-        Yes
+    <mat-dialog-content class="p-4">
+      <p>Are you sure you want to delete {{ selectedsupplier?.name }}?</p>
+      <p class="text-gray-600 mt-2">This action cannot be undone.</p>
+    </mat-dialog-content>
+    <mat-dialog-actions align="end">
+      <button mat-button mat-dialog-close>Cancel</button>
+      <button mat-raised-button color="warn" (click)="deletesupplier(selectedsupplier!.id!)">
+        Delete
       </button>
-      <button mat-button mat-dialog-close>No</button>
-    </div>
+    </mat-dialog-actions>
   </ng-template>
 
+  <!-- Enhanced Footer -->
+  <footer class="mt-12 py-6 bg-gray-100 border-t">
+    <div class="container mx-auto px-4 text-center text-gray-600">
+      <p>&copy; 2024 Client Cart. All rights reserved.</p>
+    </div>
+  </footer>
 </div>
-
-<!-- Footer -->
-<footer class="bg-dark text-white py-3 mt-4">
-  <div class="text-center">
-    © 2024 Supplier Management System | All rights reserved.
-  </div>
-</footer>

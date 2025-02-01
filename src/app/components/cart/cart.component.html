@@ -1,56 +1,84 @@
-<!-- cart.component.html -->
-<div class="container mt-4">
-  <mat-toolbar color="primary">
-    <span>Carts</span>
-  </mat-toolbar>
+<div class="container">
+  <!-- Header -->
+  <header class="row header">
+    <div class="col-12">
+      <nav class="navbar">
+        <div class="navbar-brand">Client Cart</div>
+        <ul class="navbar-menu">
+          <li><button class="btn btn-primary nav-button"
+                      (mousemove)="onMouseMove($event, 'homeButton')"
+                      (mouseleave)="onMouseLeave('homeButton')">Home</button></li>
+          <li><button class="btn btn-primary nav-button"
+                      (mousemove)="onMouseMove($event, 'aboutButton')"
+                      (mouseleave)="onMouseLeave('aboutButton')">About</button></li>
+          <li><button class="btn btn-primary nav-button"
+                      (mousemove)="onMouseMove($event, 'contactButton')"
+                      (mouseleave)="onMouseLeave('contactButton')">Contact</button></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
 
-  <!-- Display List of Carts -->
-  <div class="row">
-    <div class="col-md-4" *ngFor="let cart of carts">
-      <div class="card mb-3">
-        <div class="card-body">
-          <h5 class="card-title">Cart ID: {{ cart.id }}</h5>
-          <p class="card-text">
-            <strong>Client:</strong> {{ cart.client_name }}
-          </p>
-          <p class="card-text"><strong>User ID:</strong> {{ cart.user }}</p>
-          <p class="card-text">
-            <strong>Created At:</strong> {{ cart.created_at }}
-          </p>
-          <h5 class="card-title">
-            Total Price: {{ cart.total_price | currency : "USD" }}
-          </h5>
+  <!-- Main Content -->
+  <div class="row main-content">
+    <!-- Left Ads Column -->
+    <aside class="col-2 ads-column">
+      <div class="ad">Ad #1</div>
+      <div class="ad">Ad #2</div>
+    </aside>
 
-          <button
-            class="view-cart"
-            mat-button
-            (click)="cart.id ? viewCart(cart.id) : null"
-          >
-            view cart
-          </button>
+    <!-- Main Cart Section -->
+    <main class="col-8">
+      <mat-toolbar color="primary">
+        <span>Carts</span>
+      </mat-toolbar>
 
-          <button
-            class="select-cart"
-            *ngIf="!cart.payment"
-            (click)="selectCartForPayment(cart)"
-          >
-            Proceed to Payment
-          </button>
-          <button
-          class="select-cart"
-          *ngIf="!cart.payment"
-          (click)="selectCartForShipping(cart)"
-        >
-          Proceed to shipping details
-        </button>
+      <!-- Display List of Carts -->
+      <div class="row">
+        <div class="col-md-4" *ngFor="let cart of carts">
+          <div class="card mb-3">
+            <div class="card-body">
+              <h5 class="card-title">Cart ID: {{ cart.id }}</h5>
+              <p class="card-text">
+                <strong>Client:</strong> {{ cart.client_name }}
+              </p>
+              <p class="card-text"><strong>User ID:</strong> {{ cart.user }}</p>
+              <p class="card-text">
+                <strong>Created At:</strong> {{ cart.created_at }}
+              </p>
+              <h5 class="card-title">
+                Total Price: {{ cart.total_price | currency : "USD" }}
+              </h5>
+
+              <button
+                class="view-cart"
+                mat-button
+                (click)="cart.id ? viewCart(cart.id) : null">
+                view cart
+              </button>
+
+              <button
+                class="select-cart"
+                *ngIf="!cart.payment"
+                (click)="selectCartForPayment(cart)">
+                Proceed to Payment
+              </button>
+              <button
+                class="select-cart"
+                *ngIf="!cart.payment"
+                (click)="selectCartForShipping(cart)">
+                Proceed to shipping details
+              </button>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-  </div>
 
-  <!-- Divider -->
-  <mat-divider></mat-divider>
-        <div *ngIf="selectedCart" class="mt-4">
+      <!-- Divider -->
+      <mat-divider></mat-divider>
+
+      <!-- Cart Details Dialog Template -->
+      <div *ngIf="selectedCart" class="mt-4">
         <ng-template #dialogTemplate let-data>
           <h2 mat-dialog-title>Cart Details</h2>
           <mat-dialog-content>
@@ -75,17 +103,30 @@
             </button>
           </mat-dialog-actions>
         </ng-template>
+      </div>
 
+      <!-- Action Buttons -->
+      <div class="mt-3">
+        <button class="new-cart" (click)="createCart(userId!)">
+          Create New Cart
+        </button>
+      </div>
+      <div class="mt-3">
+        <button class="shop-button" (click)="goToShop()">Go to Shop</button>
+      </div>
+    </main>
+
+    <!-- Right Ads Column -->
+    <aside class="col-2 ads-column">
+      <div class="ad">Ad #3</div>
+      <div class="ad">Ad #4</div>
+    </aside>
+  </div>
+
+  <!-- Footer -->
+  <footer class="row footer">
+    <div class="col-12">
+      <p>&copy; 2024 Client Cart. All rights reserved.</p>
     </div>
-  </div>
-  <!-- Create New Cart -->
-  <div class="mt-3">
-    <button class="new-cart" (click)="createCart(userId!)">
-      Create New Cart
-    </button>
-  </div>
-  <!-- Shop Redirection Button -->
-  <div class="mt-3">
-    <button class="shop-button" (click)="goToShop()">Go to Shop</button>
-  </div>
-
+  </footer>
+</div>

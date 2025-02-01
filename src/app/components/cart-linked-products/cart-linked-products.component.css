@@ -1,85 +1,188 @@
 /* Global Styling */
 body {
   display: flex;
-  justify-content: center;    /* Centers horizontally */
-  align-items: center;        /* Centers vertically */
-  height: 100vh;              /* Full height of the viewport */
-  margin: 0;                  /* Remove default margin to ensure no space around */
-  background-color: #f0f0f0;  /* Light background for the body */
+  justify-content: center; /* Centers horizontally */
+  align-items: center;     /* Centers vertically */
+  height: 100vh;           /* Full height of the viewport */
+  margin: 0;               /* Remove default margin */
+  background-color: #f0f0f0; /* Light background for the body */
+  font-family: 'Arial', sans-serif;
 }
 
 /* Ensure the container is centered in its parent */
 .container {
-  width: 80%;
-  max-width: 1000px;          /* Maximum width */
-  padding: 40px;
-  background-color: #ffffff;
-  border-radius: 15px;
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.15);
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
-  position: relative;         /* Keeps the pseudo-element positioned correctly */
-  margin: 0 auto;             /* Centers the container horizontally */
-}
-
-/* Add padding on top and bottom to ensure vertical centering */
-.container:before {
-  content: "";
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 320px;
-  height: 320px;
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  transform: translate(-50%, -50%);
-  border-radius: 50%;
-  z-index: -1;
-}
-
-/* Keep the rest of your existing styles intact */
-
-/* Heading styles */
-h1, h3 {
-  text-align: center;
-  font-weight: bold;
-  margin-bottom: 30px;
-  font-size: 2.4em;
-  color: #1c1c1c;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-/* Card Styling */
-.card {
+  width: 100%;
+  max-width: 1200px;
+  padding: 30px;
   background-color: #ffffff;
   border-radius: 20px;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
-  padding: 40px;
-  width: 100%;
-  max-width: 700px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  margin: 0 auto;
+
+}
+
+/* Header styles */
+header {
+  background-color: #898d91; /* Dark header background */
+  padding: 15px 0;
+  color: white;
+  text-align: center;
+  padding: 15px;
+  margin-top: 30px;
+  border-radius: 10px;
+}
+
+.navbar {
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+}
+
+.navbar-brand {
+  font-size: 1.8em;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.navbar-menu {
+  list-style-type: none;
+  display: flex;
+  gap: 15px;
+}
+
+.navbar-menu li {
+  display: inline;
+}
+
+/* Navbar button styles for header */
+.nav-button {
+  background-color: #9b1c1c; /* Ruby Red */
+  color: #fff; /* White text */
+  padding: 10px 20px;
+  border-radius: 8px;
+  transition: all 0.3s ease; /* Smooth transition */
+  font-weight: bold;
+}
+
+/* Hover and active states for navbar buttons */
+.nav-button:hover {
+  background-color: #8a1616; /* Dark Ruby Red */
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
+}
+
+.nav-button:active {
+  background-color: #7a1212; /* Even darker Ruby Red */
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
+}
+
+/* Disabled navbar button */
+.nav-button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+/* Button styles for the form */
+.btn, .submit-button {
+  padding: 15px 30px;
+  font-size: 1.1em;
+  border-radius: 12px;
+  width: 100%;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease; /* Smooth transition */
+  border: none;
+  font-weight: bold; /* Make text bold for visibility */
+}
+
+/* Primary button (Ruby Red with White text) */
+.btn-primary, .submit-button {
+  background-color: #9b1c1c; /* Ruby Red */
+  color: #fff; /* White text */
+}
+
+/* Hover state for buttons (Dark Ruby Red) */
+.btn-primary:hover,.submit-button:hover {
+  background-color: #8a1616; /* Dark Ruby Red */
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2); /* Enhanced shadow on hover */
+  color : white;
+}
+
+/* Active state for buttons (Even darker Ruby Red when clicked) */
+.btn-primary:active, .submit-button:active {
+  background-color: #7a1212; /* Even darker Ruby Red */
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2); /* Reset shadow on active */
+}
+
+/* Disabled button styles */
+.btn-primary:disabled, .submit-button:disabled {
+  background-color: #ccc; /* Gray background when disabled */
+  cursor: not-allowed; /* Disable the cursor on disabled state */
+}
+
+/* Disabled navbar button */
+.navbar-menu button.nav-button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+/* Add space between buttons in the login form */
+.button-group button {
+  margin-right: 15px; /* Add margin between buttons */
+}
+
+.button-group button:last-child {
+  margin-right: 0; /* Remove margin from the last button */
+}
+
+/* Main Content Styling */
+.main-content {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  margin-top: 30px;
+}
+
+.ads-column {
+  flex: 1;
+  background-color: #f0f0f0;
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.ads-column .ad {
+  margin-bottom: 15px;
+  background-color: #ddd;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.login-section {
+  flex: 3;
+  display: flex;
+  justify-content: center;
   align-items: center;
 }
 
-.card-header {
-  background-color: #0F52BA; /* Deep Ruby Red */
-  color: #fff;
-  text-align: center;
-  font-size: 1.5em;
-  padding: 20px;
-  border-radius: 12px;
-  margin-bottom: 30px;
-  font-weight: bold;
-  transition: background-color 0.3s ease-in-out;
-  text-transform: capitalize;
+.login-container {
+  background-color: #ffffff;
+  padding: 40px;
+  border-radius: 15px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 500px;
 }
 
-.card-header:hover {
-  background-color: #8a1616; /* Darker Ruby Red */
+h2 {
+  font-size: 2em;
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.form-group {
+  margin-bottom: 20px;
 }
 
 /* Form Elements */
@@ -90,158 +193,116 @@ h1, h3 {
   letter-spacing: 0.5px;
 }
 
-.form-control {
+/* Consolidated and enhanced input styling */
+input[type="text"], input[type="password"], .form-control, input.mat-input-element {
   width: 100%;
   padding: 15px 20px;
   font-size: 1.2em;
   margin: 12px 0;
-  border-radius: 10px;
+  border-radius: 12px;
   border: 2px solid #ccc;
   background-color: #f3f3f3;
   box-sizing: border-box;
-  transition: all 0.4s ease;
+  transition: all 0.3s ease;
   color: #333;
 }
 
-.form-control:focus {
+/* Focus and hover effect for all inputs */
+input[type="text"]:focus, input[type="password"]:focus,.form-control:focus, input.mat-input-element:focus {
   outline: none;
   border-color: #9b1c1c; /* Ruby Red Focus */
   box-shadow: 0 0 12px rgba(155, 28, 28, 0.6);
   background-color: #ffffff;
 }
 
-.form-control:disabled {
+/* Disabled Styling */
+input:disabled, .form-control:disabled, input.mat-input-element:disabled {
   background-color: #e0e0e0;
   cursor: not-allowed;
 }
 
-/* Buttons Styling */
-.btn {
-  padding: 15px 30px;
-  font-size: 1.1em;
-  border-radius: 10px;
-  width: 100%;
-  text-align: center;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.btn-primary {
-  background-color: #9b1c1c; /* Ruby Red */
-  color: #fff;
-  border: none;
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
-}
-
-.btn-primary:hover {
-  background-color: #8a1616; /* Dark Ruby Red */
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
-}
-
-.btn-primary:disabled {
-  background-color: #ccc;
-  cursor: not-allowed;
-}
-
-.btn-danger {
-  background-color: #9b1c1c; /* Ruby Red */
-  color: #fff;
-  border: none;
-}
-
-.btn-danger:hover {
-  background-color: #8a1616;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
-}
-
-.btn-danger:disabled {
-  background-color: #ccc;
-  cursor: not-allowed;
-}
-
-/* Table Styling */
-.table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 30px;
-  background-color: #ffffff;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
-}
-
-.table th, .table td {
-  text-align: left;
-  padding: 18px;
+/* Error Message Styling */
+.error {
+  color: #e74c3c;
   font-size: 1em;
-  border-bottom: 2px solid #ddd;
+  margin-top: 10px;
 }
 
-.table-striped tbody tr:nth-child(odd) {
-  background-color: #fafafa;
-}
-
-.table-striped tbody tr:hover {
-  background-color: #f4f4f4;
-  transition: background-color 0.3s ease;
-}
-
-/* Alert Styling */
-.alert {
-  padding: 20px;
-  margin: 15px 0;
-  border: 1px solid #f5c6cb;
-  background-color: #f8d7da;
-  color: #721c24;
-  border-radius: 10px;
+/* Footer Styling */
+footer {
+  background-color: #898d91;
+  color: white;
   text-align: center;
-  font-size: 1.2em;
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
-  animation: fadein 2s ease-out;
-}
-
-.alert.success {
-  background-color: #d4edda;
-  color: #155724;
-  border-color: #c3e6cb;
-}
-
-.alert.error {
-  background-color: #f8d7da;
-  color: #721c24;
-  border-color: #f5c6cb;
-}
-
-/* Animation Keyframes */
-@keyframes fadein {
-  0% { opacity: 0; }
-  100% { opacity: 1; }
+  padding: 15px;
+  margin-top: 30px;
+  border-radius: 10px;
 }
 
 /* Responsive Design */
 @media (max-width: 768px) {
+  .navbar-menu {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .main-content {
+    flex-direction: column;
+  }
+
+  .ads-column {
+    margin-bottom: 20px;
+  }
+
+  .login-section {
+    padding: 20px;
+  }
+
+  .login-container {
+    padding: 20px;
+  }
+}
+
+/* Adjustments for Small Screens */
+@media (max-width: 480px) {
   body {
-    justify-content: flex-start;
     padding: 10px;
-    background: #f5f5f5;
   }
 
   .container {
     padding: 20px;
-    width: 90%;
   }
 
-  h1, h3 {
-    font-size: 2.2em;
+  .login-container {
+    padding: 15px;
   }
 
-  .form-control {
-    padding: 12px 18px;
+  .navbar-menu a {
+    font-size: 1.1em;
   }
+}
 
-  .card-header {
-    font-size: 1.3em;
-  }
+/* Dark and Light Mode Button */
+.theme-toggle {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  background-color: #1c1c1c;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  padding: 10px;
+  cursor: pointer;
+  font-size: 20px;
+  transition: background-color 0.3s ease;
+}
 
-  .btn {
-    padding: 12px 24px;
-  }
+.theme-toggle:hover {
+  background-color: #333;
+}
+
+/* Active State for Links */
+.navbar-menu a:active {
+  color: #f0f0f0;
+  background-color: #444;
+  border-radius: 5px;
 }

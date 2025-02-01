@@ -1,20 +1,54 @@
-<div id="paypal-button-container"></div>
 
 
 
+<div class="container">
+  <!-- Header -->
+  <header class="row header">
+    <div class="col-12">
+      <nav class="navbar">
+        <div class="navbar-brand">Client Cart</div>
+        <ul class="navbar-menu">
+          <li><button class="btn btn-primary nav-button"
+                      (mousemove)="onMouseMove($event, 'homeButton')"
+                      (mouseleave)="onMouseLeave('homeButton')">Home</button></li>
+          <li><button class="btn btn-primary nav-button"
+                      (mousemove)="onMouseMove($event, 'aboutButton')"
+                      (mouseleave)="onMouseLeave('aboutButton')">About</button></li>
+          <li><button class="btn btn-primary nav-button"
+                      (mousemove)="onMouseMove($event, 'contactButton')"
+                      (mouseleave)="onMouseLeave('contactButton')">Contact</button></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
 
+  <!-- Main Content -->
+  <div class="row main-content">
+    <!-- Left Ads Column -->
+    <aside class="col-2 ads-column">
+      <div class="ad">Ad #1</div>
+      <div class="ad">Ad #2</div>
+    </aside>
 
+    <!-- Login Form Section -->
+    <main class="col-8 login-section">
+      <div id="paypal-button-container"></div>
+    </main>
 
+    <!-- Right Ads Column -->
+    <aside class="col-2 ads-column">
+      <div class="ad">Ad #3</div>
+      <div class="ad">Ad #4</div>
+    </aside>
+  </div>
 
-
-
-
-
-
-
-
-
-
+  <!-- Footer -->
+  <footer class="row footer">
+    <div class="col-12">
+      <p>&copy; 2024 Client Cart. All rights reserved.</p>
+    </div>
+  </footer>
+</div>
 
 
 

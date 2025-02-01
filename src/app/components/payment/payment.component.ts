@@ -15,7 +15,7 @@ export class PaymentComponent implements OnInit {
   cart: Cart | null = null; // Store the cart model
   totalAmount: number = 0; // Store the dynamic amount for PayPal
   carts: Cart[] = []; // Store list of carts from the CartComponent
-
+  buttonStyles: any = {};
   constructor(
     private cartService: CartService,
     private paymentService: PaymentService, // Inject the payment service
@@ -105,5 +105,32 @@ export class PaymentComponent implements OnInit {
         },
       })
       .render('#paypal-button-container');
+  }
+
+  onMouseMove(event: MouseEvent, buttonId: string) {
+    const button = event.target as HTMLElement;
+    const rect = button.getBoundingClientRect();
+    const x = event.clientX - rect.left;
+    const y = event.clientY - rect.top;
+    const width = rect.width;
+    const height = rect.height;
+
+    // Calculate the percentage of mouse position in the button
+    const xPercentage = (x / width) * 100;
+    const yPercentage = (y / height) * 100;
+
+    // Update the dynamic gradient based on mouse position
+    this.buttonStyles[buttonId] = {
+      background: `linear-gradient(45deg, rgba(155, 28, 28, 0.9) ${xPercentage}%, rgba(155, 28, 28, 0.7) ${100 - xPercentage}%)`,
+      boxShadow: `0 6px 18px rgba(0, 0, 0, 0.1), inset 0 0 10px rgba(0, 0, 0, 0.3)`
+    };
+  }
+
+  onMouseLeave(buttonId: string) {
+    // Reset the button style back to default Ruby Red
+    this.buttonStyles[buttonId] = {
+      background: '#9b1c1c',
+      boxShadow: '0 6px 18px rgba(0, 0, 0, 0.2)'
+    };
   }
 }

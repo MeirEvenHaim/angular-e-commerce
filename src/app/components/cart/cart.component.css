@@ -1,178 +1,261 @@
-
 /* General styles */
 body {
-  font-family: 'Roboto', sans-serif; /* Use Roboto for a modern look */
-  font-weight: 500; /* Thicker font weight */
-  line-height: 1.6; /* Increased line height for readability */
+  font-family: 'Roboto', sans-serif;
+  font-weight: 500;
+  line-height: 1.6;
   background: linear-gradient(to right, #f8f9fa, #e9ecef);
   margin: 0;
-  padding: 20px;
+  padding: 0;
+  min-height: 100vh;
 }
 
 .container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 20px; /* Added padding for better spacing */
-  border-radius: 8px; /* Rounded corners for the container */
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
-  background-color: white; /* Container background */
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: #ffffff;
+  margin: 0;
+  padding: 0;
 }
 
-/* Toolbar */
+/* Header and Navbar */
+.header {
+  width: 100%;
+  background-color: #0548ad;
+  padding: 15px 0;
+  margin: 0;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+}
+
+.navbar-brand {
+  font-size: 1.8em;
+  font-weight: bold;
+  text-transform: uppercase;
+  color: white;
+}
+
+.navbar-menu {
+  list-style-type: none;
+  display: flex;
+  gap: 15px;
+}
+
+.nav-button {
+  background-color: #012a66;
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+}
+
+.nav-button:hover {
+  background-color: #8a1616;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
+}
+
+.nav-button:active {
+  background-color: #7a1212;
+}
+
+.nav-button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+/* Material Toolbar Customization */
 .mat-toolbar {
   border-radius: 5px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-  background-color: #007bff; /* Change to a primary color */
-  color: white; /* White text for contrast */
-  padding: 10px 20px; /* Add padding to toolbar */
+  background-color: #033e96 !important;
+  color: white;
+  padding: 10px 20px;
 }
 
-/* Card styles */
+/* Advertisement Columns */
+.ads-column {
+  position: fixed;
+  top: 70px;
+  bottom: 0;
+  width: 200px;
+  background-color: #f0f0f0;
+  padding: 15px;
+  z-index: 999;
+}
+
+/* Left ads column */
+.col-2:first-of-type {
+  left: 0;
+}
+
+/* Right ads column */
+.col-2:last-of-type {
+  right: 0;
+}
+
+/* Ad Styling */
+.ad {
+  margin-bottom: 15px;
+  background-color: #ddd;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+/* Main container */
+main {
+  margin: 70px 220px 0 220px;
+  padding: 20px;
+  background: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  height: calc(100vh - 70px);
+  overflow-y: auto;
+}
+
+/* Container for the cards */
+.main-content {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 20px;
+  overflow-x: auto;
+  padding: 20px 0;
+  width: max-content;
+}
+
+/* Card styling */
 .card {
-  border-radius: 12px; /* More rounded corners */
-  background-color: #ffffff; /* White background for cards */
-  transition: transform 0.2s ease, box-shadow 0.3s ease; /* Smooth transition */
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Increased shadow */
-  margin-bottom: 20px; /* Space between cards */
-  padding: 15px; /* Padding for card content */
-  position: relative; /* For z-index manipulation */
+  flex: 0 0 250px;
+  height: 350px;
+  margin: 0;
+  background-color: #ffffff;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.card-body {
+  padding: 15px;
 }
 
 .card:hover {
-  transform: translateY(-5px) scale(1.02); /* Lift effect on hover */
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25); /* Deeper shadow on hover */
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
 }
 
-/* Grid layout for cards */
-.row {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-}
-
-/* Responsive card layout */
-.col-md-4 {
-  flex: 1 0 28%; /* Default to about 28% width */
-  max-width: 28%; /* Max width for medium screens */
-  margin: 10px;
-}
-
-@media (max-width: 768px) {
-  .col-md-4 {
-    flex: 1 0 100%; /* Full width on small screens */
-    max-width: 100%;
-  }
-}
-
-/* Card content */
-.card-body {
-  padding: 20px; /* Increased padding for more spacious content */
-}
-
-/* Table styles */
-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-bottom: 20px;
-}
-
-th,
-td {
-  border: 1px solid #ddd;
-  padding: 12px; /* Increased padding for table cells */
-  text-align: left;
-}
-
-th {
-  background-color: #007bff; /* Use primary color for headers */
-  color: white; /* White text for contrast */
-  font-weight: bold; /* Bold text for headers */
-  font-size: 1.1em; /* Slightly larger font for headers */
-}
-
-/* Alternating row colors */
-tr:nth-child(even) {
-  background-color: #f8f9fa; /* Light grey for even rows */
-}
-
-
-/* Error message */
-.error {
-  color: red;
-  font-weight: bold; /* Emphasize error messages */
-}
-
-/* Button styles */
-button {
-  transition: background-color 0.3s ease, transform 0.2s ease; /* Smooth transition */
-  padding: 10px 15px; /* Increased padding for buttons */
-  border-radius: 5px; /* Rounded corners for buttons */
-  color: white; /* Text color */
-  border: none; /* Remove border */
-  cursor: pointer; /* Pointer cursor on hover */
-  font-family: 'Roboto', sans-serif; /* Sans-serif font */
-  font-weight: 600; /* Thicker font weight */
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Subtle shadow */
-}
-
-/* Specific button colors */
+/* Button Styles */
 button.delete {
-  background: linear-gradient(45deg, #9B0000, #D50000); /* Ruby red gradient for delete button */
+  background: linear-gradient(45deg, #9B0000, #D50000);
+  color: white;
 }
 
 button.view-cart {
-  background: linear-gradient(45deg, #FFC107, #FFD700); /* Yellow topaz gradient for view cart button */
-  color: black; /* Black text for visibility */
+  background: linear-gradient(45deg, #FFC107, #FFD700);
+  color: black;
 }
 
 button.new-cart {
-  background: linear-gradient(45deg, #0D6EFD, #007BFF); /* Sapphire blue gradient for new cart button */
+  background: linear-gradient(45deg, #0D6EFD, #007BFF);
+  color: white;
 }
+
 button.select-cart {
-  background: linear-gradient(45deg, #FFC107, #FFD700); /* Yellow topaz gradient for view cart button */
-  color: black; /* Black text for visibility */
+  background: linear-gradient(45deg, #FFC107, #FFD700);
+  color: black;
 }
 
-/* Hover effects for buttons */
+button.shop-button {
+  background: linear-gradient(45deg, #50C878, #3E8B5A);
+  color: white;
+}
+
+/* Common Button Properties */
+button {
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  padding: 10px 15px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 600;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+/* Button Hover Effects */
 button:hover {
-  transform: scale(1.05); /* Slightly grow on hover */
-  opacity: 0.9; /* Slight opacity change */
+  transform: scale(1.05);
+  opacity: 0.9;
 }
 
-/* Hover effects for specific buttons */
 button.delete:hover {
-  background: linear-gradient(45deg, #D50000, #FF3B3B); /* Darker ruby red on hover */
+  background: linear-gradient(45deg, #D50000, #FF3B3B);
 }
 
 button.view-cart:hover {
-  background: linear-gradient(45deg, #FFD700, #FFC107); /* Darker yellow topaz on hover */
+  background: linear-gradient(45deg, #FFD700, #FFC107);
 }
 
 button.new-cart:hover {
-  background: linear-gradient(45deg, #007BFF, #0056b3); /* Darker sapphire blue on hover */
+  background: linear-gradient(45deg, #007BFF, #0056b3);
 }
 
-/* Cart details card */
-.mt-4 {
-  margin-top: 2rem;
+button.shop-button:hover {
+  background: linear-gradient(45deg, #3E8B5A, #356F4A);
 }
 
-/* Shop button style */
-.shop-button {
-  background: linear-gradient(45deg, #50C878, #3E8B5A); /* Emerald green gradient for the shop button */
-  color: rgb(255, 255, 255); /* White text for contrast */
-  padding: 12px 20px; /* Increased padding for a better feel */
-  border: none; /* Remove border */
-  border-radius: 5px; /* Rounded corners */
-  font-size: 1em; /* Consistent font size */
-  font-weight: 600; /* Thicker font weight */
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2); /* Slight shadow */
-  transition: background-color 0.3s ease, transform 0.2s ease; /* Smooth transition */
+/* Dialog Customization */
+.mat-dialog-container {
+  border-radius: 12px !important;
+  padding: 20px;
 }
 
-/* Hover effect for the shop button */
-.shop-button:hover {
-  background: linear-gradient(45deg, #3E8B5A, #356F4A); /* Darker emerald green gradient on hover */
-  transform: scale(1.05); /* Slightly grow on hover */
-  opacity: 0.9; /* Slight opacity change */
+.mat-dialog-title {
+  color: #333;
+  font-weight: 600;
+}
+
+.mat-dialog-actions {
+  padding: 15px;
+  display: flex;
+  gap: 10px;
+}
+
+/* Footer */
+.footer {
+  width: 100%;
+  background-color: #033e96;
+  color: white;
+  text-align: center;
+  padding: 15px 0;
+  position: relative;
+}
+
+/* Custom scrollbar styling */
+.main-content::-webkit-scrollbar {
+  height: 8px;
+}
+
+.main-content::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+.main-content::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 4px;
+}
+
+.main-content::-webkit-scrollbar-thumb:hover {
+  background: #555;
 }
