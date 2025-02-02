@@ -58,6 +58,7 @@ header {
 }
 
 /* Navbar button styles for header */
+/* Navbar button styles for header */
 .nav-button {
   background-color: #9b1c1c; /* Ruby Red */
   color: #fff; /* White text */
@@ -135,6 +136,7 @@ header {
 .button-group button:last-child {
   margin-right: 0; /* Remove margin from the last button */
 }
+
 
 /* Main Content Styling */
 .main-content {

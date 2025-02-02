@@ -22,7 +22,6 @@ export class PaymentComponent implements OnInit {
     private router: Router // Inject router for redirecting after payment
   ) {
     this.cart = this.router.getCurrentNavigation()?.extras.state!['cart'];
-    console.log('HOHOHO', this.cart);
   }
   ngOnInit(): void {
     this.cartFunc();
@@ -132,5 +131,26 @@ export class PaymentComponent implements OnInit {
       background: '#9b1c1c',
       boxShadow: '0 6px 18px rgba(0, 0, 0, 0.2)'
     };
+  }
+  goToShop(): void {
+    this.router.navigate(['/cart']);
+  }
+  GoHome(): void {
+    this.router.navigate(['/Home']);
+  }
+
+  logout(): void {
+    // Clear user data from local storage
+    localStorage.removeItem('accessToken');
+    localStorage.removeItem('__paypal_storage__');
+    localStorage.removeItem('is_staff');
+    localStorage.removeItem('user_id');
+    localStorage.removeItem('is_superuser');
+    this.router.navigate(['/login'])
+  }
+
+
+  Suppliers(): void {
+    this.router.navigate(['/supplier']);
   }
 }

@@ -1,6 +1,6 @@
 import { CartService } from '../../services copy/profile_service/cart.service';
 import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
-import { Router } from '@angular/router'; // Import Router for navigation
+import { Router } from '@angular/router';
 import { Cart } from '../../models file/CartModel';
 import { MatDialog } from '@angular/material/dialog';
 import { ChangeDetectorRef } from '@angular/core';
@@ -133,7 +133,7 @@ export class CartComponent implements OnInit {
   }
 
   goToShop(): void {
-    this.router.navigate(['/product']); // Navigate to the shop page
+    this.router.navigate(['/Home']); // Navigate to the shop page
   }
 
 
@@ -164,6 +164,26 @@ export class CartComponent implements OnInit {
       background: '#9b1c1c', // Default Ruby Red color
       boxShadow: '0 6px 18px rgba(0, 0, 0, 0.2)',
     };
+  }
+
+  
+  GoHome(): void {
+    this.router.navigate(['/Home']);
+  }
+
+  logout(): void {
+    // Clear user data from local storage
+    localStorage.removeItem('accessToken');
+    localStorage.removeItem('__paypal_storage__');
+    localStorage.removeItem('is_staff');
+    localStorage.removeItem('user_id');
+    localStorage.removeItem('is_superuser');
+    this.router.navigate(['/login'])
+  }
+
+
+  Suppliers(): void {
+    this.router.navigate(['/supplier']);
   }
 
 }

@@ -4,7 +4,7 @@ import { SuppliersService } from '../../services copy/supplier_services/supplier
 import { Suppliers } from '../../models file/supplierModel';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-suppliers',
   templateUrl: './suppliers.component.html',
@@ -25,7 +25,8 @@ export class SuppliersComponent {
     constructor(
        private suppliersService: SuppliersService,
        private dialog: MatDialog,
-       private snackBar: MatSnackBar) {}
+       private snackBar: MatSnackBar,
+      private router : Router) {}
 
     ngOnInit(): void {
       this.loadSupplier();
@@ -158,4 +159,25 @@ export class SuppliersComponent {
       this.dialog.closeAll();  // Close all open dialogs
     }
 
+    goToShop(): void {
+      this.router.navigate(['/cart']);
+    }
+    GoHome(): void {
+      this.router.navigate(['/Home']);
+    }
+
+    logout(): void {
+      // Clear user data from local storage
+      localStorage.removeItem('accessToken');
+      localStorage.removeItem('__paypal_storage__');
+      localStorage.removeItem('is_staff');
+      localStorage.removeItem('user_id');
+      localStorage.removeItem('is_superuser');
+      this.router.navigate(['/login'])
+    }
+
+
+    Suppliers(): void {
+      this.router.navigate(['/supplier']);
+    }
 }

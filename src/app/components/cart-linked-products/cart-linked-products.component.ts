@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CartService } from '../../services copy/client_cart_Service/cart-linked-products.service';
 import { CartLinkedProduct } from '../../models file/CartLinkedProductModel';
 import { Product } from '../../models file/productModel';
-
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-cart-linked-products.component',
   templateUrl: './cart-linked-products.component.html',
@@ -19,8 +19,12 @@ export class CartItemsComponent implements OnInit {
   newProductName: string = '';
   ClientName: string = '';
   quantity: number = 0;
-  productItems: Product[] = []; // Array of Product items
-  constructor(private cartService: CartService) {}
+  productItems: Product[] = [];
+
+  constructor(
+    private cartService: CartService,
+    private router: Router
+  ) {}
 
   displayedColumns: string[] = [
     'client_name',
@@ -187,6 +191,27 @@ export class CartItemsComponent implements OnInit {
     if (product) {
       this.newProductName = product.name; // Correct assignment
     }
+  }
+  goToShop(): void {
+    this.router.navigate(['/cart']);
+  }
+  GoHome(): void {
+    this.router.navigate(['/Home']);
+  }
+
+  logout(): void {
+    // Clear user data from local storage
+    localStorage.removeItem('accessToken');
+    localStorage.removeItem('__paypal_storage__');
+    localStorage.removeItem('is_staff');
+    localStorage.removeItem('user_id');
+    localStorage.removeItem('is_superuser');
+    this.router.navigate(['/login'])
+  }
+
+
+  Suppliers(): void {
+    this.router.navigate(['/supplier']);
   }
 
 }

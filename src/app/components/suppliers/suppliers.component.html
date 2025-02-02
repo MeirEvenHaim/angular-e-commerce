@@ -1,32 +1,67 @@
 <div class="min-h-screen bg-gray-50">
   <!-- Enhanced Header Section -->
-  <header class="sticky top-0 z-50 bg-white border-b shadow-sm">
-    <div class="container mx-auto">
-      <div class="flex justify-between items-center h-16 px-4">
-        <div class="flex items-center space-x-4">
-          <h1 class="text-xl font-semibold text-gray-900">Supplier Management</h1>
-        </div>
+  <header class="row header">
+    <div class="col-12">
+      <nav class="navbar">
+        <div class="navbar-brand">Client Cart</div>
+        <ul class="navbar-menu">
+          <li>
+            <button
+              class="btn btn-primary nav-button"
+              (mousemove)="onMouseMove($event, 'homeButton')"
+              (mouseleave)="onMouseLeave('homeButton')"
+              (click)="goToShop()"
+            >
+              home
+            </button>
+          </li>
+          <li>
+            <button
+              class="btn btn-primary nav-button"
+              (mousemove)="onMouseMove($event, 'aboutButton')"
+              (mouseleave)="onMouseLeave('aboutButton')"
+            >
+              About
+            </button>
+          </li>
+          <li>
+            <button
+              class="btn btn-primary nav-button"
+              (mousemove)="onMouseMove($event, 'contactButton')"
+              (mouseleave)="onMouseLeave('contactButton')"
+            >
+              Contact
+            </button>
+          </li>
+          <li>
+            <button
+              class="btn btn-primary nav-button"
+              (mousemove)="onMouseMove($event, 'contactButton')"
+              (mouseleave)="onMouseLeave('contactButton')"
+              (click)="Suppliers()"
+            >
+              products by suppliers
+            </button>
+          </li>
+          <li>
+            <button
+              class="btn btn-primary nav-button"
+              (mousemove)="onMouseMove($event, 'contactButton')"
+              (mouseleave)="onMouseLeave('contactButton')"
+              (click)="logout()"
+            >
+              logout
+            </button>
 
-        <nav class="flex items-center space-x-3">
-          <button mat-raised-button color="primary" routerLink="/dashboard"
-                  class="mat-elevation-z0">
-            Dashboard
-          </button>
-          <button mat-raised-button color="primary" routerLink="/products"
-                  class="mat-elevation-z0">
-            Products
-          </button>
-          <button mat-raised-button color="primary" routerLink="/orders"
-                  class="mat-elevation-z0">
-            Orders
-          </button>
-          <button mat-raised-button color="primary" routerLink="/suppliers"
-                  class="mat-elevation-z0">
-            Suppliers
-          </button>
-        </nav>
-      </div>
+          </li>
+        </ul>
+      </nav>
     </div>
+    <!-- Left Ads Column -->
+    <aside class="col-2 ads-column">
+      <div class="ad">Ad #1</div>
+      <div class="ad">Ad #2</div>
+    </aside>
   </header>
 
   <div class="container mx-auto px-4 py-6">

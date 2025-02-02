@@ -1,29 +1,65 @@
-
 <header class="row header">
   <div class="col-12">
     <nav class="navbar">
       <div class="navbar-brand">Client Cart</div>
       <ul class="navbar-menu">
-        <li><button class="btn btn-primary nav-button"
-                    (mousemove)="onMouseMove($event, 'homeButton')"
-                    (mouseleave)="onMouseLeave('homeButton')">Home</button></li>
-        <li><button class="btn btn-primary nav-button"
-                    (mousemove)="onMouseMove($event, 'aboutButton')"
-                    (mouseleave)="onMouseLeave('aboutButton')">About</button></li>
-        <li><button class="btn btn-primary nav-button"
-                    (mousemove)="onMouseMove($event, 'contactButton')"
-                    (mouseleave)="onMouseLeave('contactButton')">Contact</button></li>
+        <li>
+          <button
+            class="btn btn-primary nav-button"
+            (mousemove)="onMouseMove($event, 'homeButton')"
+            (mouseleave)="onMouseLeave('homeButton')"
+            (click)="proFileFun()"
+          >
+            profile
+          </button>
+        </li>
+        <li>
+          <button
+            class="btn btn-primary nav-button"
+            (mousemove)="onMouseMove($event, 'aboutButton')"
+            (mouseleave)="onMouseLeave('aboutButton')"
+          >
+            About
+          </button>
+        </li>
+        <li>
+          <button
+            class="btn btn-primary nav-button"
+            (mousemove)="onMouseMove($event, 'contactButton')"
+            (mouseleave)="onMouseLeave('contactButton')"
+          >
+            Contact
+          </button>
+        </li>
+        <li>
+          <button
+            class="btn btn-primary nav-button"
+            (mousemove)="onMouseMove($event, 'contactButton')"
+            (mouseleave)="onMouseLeave('contactButton')"
+            (click)="Suppliers()"
+          >
+            products by suppliers
+          </button>
+        </li>
+        <li>
+          <button
+            class="btn btn-primary nav-button"
+            (mousemove)="onMouseMove($event, 'contactButton')"
+            (mouseleave)="onMouseLeave('contactButton')"
+            (click)="logout()"
+          >
+            logout
+          </button>
+        </li>
       </ul>
     </nav>
   </div>
-        <!-- Left Ads Column -->
-        <aside class="col-2 ads-column">
-          <div class="ad">Ad #1</div>
-          <div class="ad">Ad #2</div>
-        </aside>
+  <!-- Left Ads Column -->
+  <aside class="col-2 ads-column">
+    <div class="ad">Ad #1</div>
+    <div class="ad">Ad #2</div>
+  </aside>
 </header>
-
-
 
 <div class="container mt-5">
   <h1 class="text-center mb-4">Product List</h1>
@@ -43,7 +79,9 @@
             <strong>Category:</strong> {{ product.category }}
           </p>
           <p class="card-text">
-            <strong>how much :</strong> <input type="number" id="quantity" name="quantity" value="0"/> out of the existing stock {{ product.stock }}
+            <strong>how much :</strong>
+            <input type="number" id="quantity" name="quantity" value="0" /> out
+            of the existing stock {{ product.stock }}
           </p>
           <!-- Display supplier name -->
           <p class="card-text">
@@ -53,7 +91,10 @@
             <span class="text-muted"
               >${{ product.price | number : "1.2-2" }}</span
             >
-            <button class="btn btn-primary" (click)="addedproducts(product?.id!)">
+            <button
+              class="btn btn-primary"
+              (click)="addedproducts(product?.id!)"
+            >
               <i class="material-icons">add_shopping_cart</i> Add to Cart
             </button>
           </div>
@@ -156,16 +197,15 @@
   </div>
 </div>
 
-    <!-- Right Ads Column -->
-    <aside class="col-2 ads-column">
-      <div class="ad">Ad #3</div>
-      <div class="ad">Ad #4</div>
-    </aside>
+<!-- Right Ads Column -->
+<aside class="col-2 ads-column">
+  <div class="ad">Ad #3</div>
+  <div class="ad">Ad #4</div>
+</aside>
 
-
-  <!-- Footer -->
-  <footer class="row footer">
-    <div class="col-12">
-      <p>&copy; 2024 Client Cart. All rights reserved.</p>
-    </div>
-  </footer>
+<!-- Footer -->
+<footer class="row footer">
+  <div class="col-12">
+    <p>&copy; 2024 Client Cart. All rights reserved.</p>
+  </div>
+</footer>

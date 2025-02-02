@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { ShippingService } from '../../services copy/shipping_services/shipping.service';
 import { Shipping } from '../../models file/shippingModel';
 import { Router } from '@angular/router'; // For navigation
-import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-shipping',
@@ -156,4 +155,26 @@ export class ShippingComponent implements OnInit {
       boxShadow: '0 6px 18px rgba(0, 0, 0, 0.2)'
     };
   }
+  goToShop(): void {
+    this.router.navigate(['/cart']);
+  }
+  GoHome(): void {
+    this.router.navigate(['/Home']);
+  }
+
+  logout(): void {
+    // Clear user data from local storage
+    localStorage.removeItem('accessToken');
+    localStorage.removeItem('__paypal_storage__');
+    localStorage.removeItem('is_staff');
+    localStorage.removeItem('user_id');
+    localStorage.removeItem('is_superuser');
+    this.router.navigate(['/login'])
+  }
+
+
+  Suppliers(): void {
+    this.router.navigate(['/supplier']);
+  }
 }
+

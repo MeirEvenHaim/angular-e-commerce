@@ -4,7 +4,7 @@ import { CategoriesService } from '../../services copy/categories_service/catego
 import { Categories } from '../../models file/categoriesModel';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-categories',
@@ -25,6 +25,7 @@ export class CategoriesComponent implements OnInit {
   constructor(
      private categoriesService: CategoriesService,
      private dialog: MatDialog,
+     private router: Router,
      private snackBar: MatSnackBar) {}
 
   ngOnInit(): void {
@@ -153,6 +154,28 @@ createCategory(): void {
     } else {
       console.error('Invalid category ID');
     }
+  }
+
+  goToShop(): void {
+    this.router.navigate(['/cart']);
+  }
+  GoHome(): void {
+    this.router.navigate(['/Home']);
+  }
+
+  logout(): void {
+    // Clear user data from local storage
+    localStorage.removeItem('accessToken');
+    localStorage.removeItem('__paypal_storage__');
+    localStorage.removeItem('is_staff');
+    localStorage.removeItem('user_id');
+    localStorage.removeItem('is_superuser');
+    this.router.navigate(['/login'])
+  }
+
+
+  Suppliers(): void {
+    this.router.navigate(['/supplier']);
   }
 }
 

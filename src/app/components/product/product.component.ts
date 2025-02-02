@@ -6,7 +6,7 @@ import { Categories } from '../../models file/categoriesModel';
 import { Suppliers } from '../../models file/supplierModel';
 import { Product } from '../../models file/productModel';
 import { FormControl  } from '@angular/forms';
-
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-product',
   templateUrl: './product.component.html',
@@ -37,7 +37,8 @@ export class ProductComponent implements OnInit {
   constructor(
     private productService: ProductService,
     private suppliersService: SuppliersService,
-    private categoriesService: CategoriesService
+    private categoriesService: CategoriesService,
+    private router: Router,
   ) {}
 
   ngOnInit(): void {
@@ -253,5 +254,27 @@ export class ProductComponent implements OnInit {
       background: '#9b1c1c',
       boxShadow: '0 6px 18px rgba(0, 0, 0, 0.2)'
     };
+  }
+
+  proFileFun(): void {
+    this.router.navigate(['/cart']);
+  }
+  GoHome(): void {
+    this.router.navigate(['/Home']);
+  }
+
+  logout(): void {
+    // Clear user data from local storage
+    localStorage.removeItem('accessToken');
+    localStorage.removeItem('__paypal_storage__');
+    localStorage.removeItem('is_staff');
+    localStorage.removeItem('user_id');
+    localStorage.removeItem('is_superuser');
+    this.router.navigate(['/login'])
+  }
+
+
+  Suppliers(): void {
+    this.router.navigate(['/supplier']);
   }
 }

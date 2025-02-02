@@ -49,7 +49,7 @@ export class LoginComponent {
           console.log("res", response);
           if (response.access && response.is_staff !== undefined && response.is_superuser !== undefined) {
             this.authService.saveToken(response.access, response.is_staff, response.is_superuser, response.user_id);
-            this.router.navigate(['cart/']);
+            this.router.navigate(['Home/']);
           } else {
             this.errorMessage = 'No access token or role information received';
             console.error('Invalid response:', response);
